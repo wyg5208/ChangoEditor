@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Chango Editor XML测试文件 -->
+<!-- 展示XML语法结构和各种特性 -->
+
+<!DOCTYPE changoeditor [
+    <!ELEMENT project (metadata, dependencies, features, configuration)>
+    <!ELEMENT metadata (name, version, description, author, license)>
+    <!ELEMENT dependencies (required*, optional*)>
+    <!ELEMENT features (syntax_highlighting, file_operations, editor_settings)>
+    <!ELEMENT configuration (ui, performance, shortcuts)>
+]>
+
+<changoeditor xmlns="http://changoeditor.com/schema/v1"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://changoeditor.com/schema/v1 changoeditor-v1.xsd"
+          version="1.0">
+    
+    <!-- 项目元数据 -->
+    <metadata>
+        <name>Chango Lite</name>
+        <version major="0" minor="1" patch="0" build="12">0.1.0</version>
+        <description>
+            <![CDATA[
+            一个功能强大的轻量级代码编辑器，支持多种编程语言的语法高亮、
+            智能代码补全、文件管理等功能。基于PyQt6开发，提供现代化的用户界面。
+            ]]>
+        </description>
+        <author email="team@changoeditor.com" website="https://changoeditor.com">Chango Team</author>
+        <license type="MIT" url="https://opensource.org/licenses/MIT">MIT License</license>
+        <created_date>2024-01-01T00:00:00Z</created_date>
+        <last_modified>2024-01-15T12:30:45Z</last_modified>
+    </metadata>
+    
+    <!-- 依赖管理 -->
+    <dependencies>
+        <required>
+            <dependency name="PyQt6" version="&gt;=6.6.0" type="framework">
+                <description>跨平台GUI应用程序框架</description>
+                <homepage>https://www.riverbankcomputing.com/software/pyqt/</homepage>
+            </dependency>
+            <dependency name="Pygments" version="&gt;=2.17.0" type="library">
+                <description>通用语法高亮库</description>
+                <homepage>https://pygments.org/</homepage>
+            </dependency>
+            <dependency name="watchdog" version="&gt;=3.0.0" type="library">
+                <description>文件系统事件监控</description>
+                <homepage>https://github.com/gorakhargosh/watchdog</homepage>
+            </dependency>
+            <dependency name="chardet" version="&gt;=5.2.0" type="library">
+                <description>字符编码检测</description>
+                <homepage>https://github.com/chardet/chardet</homepage>
+            </dependency>
+        </required>
+        
+        <optional>
+            <dependency name="gitpython" version="&gt;=3.1.0" type="library" optional="true">
+                <description>Git版本控制集成</description>
+                <homepage>https://github.com/gitpython-developers/GitPython</homepage>
+            </dependency>
+        </optional>
+    </dependencies>
+    
+    <!-- 功能特性 -->
+    <features>
+        <!-- 语法高亮 -->
+        <syntax_highlighting enabled="true">
+            <supported_languages>
+                <language id="python" name="Python" extensions=".py,.pyw,.pyx">
+                    <keywords>def,class,if,else,elif,for,while,try,except,finally,import,from,as,with,lambda,yield,return,pass,break,continue</keywords>
+                    <builtin_functions>print,len,range,enumerate,zip,map,filter,sorted,reversed,sum,max,min,abs,round</builtin_functions>
+                </language>
+                
+                <language id="javascript" name="JavaScript" extensions=".js,.jsx">
+                    <keywords>var,let,const,function,class,if,else,for,while,do,switch,case,default,try,catch,finally,return,break,continue,throw,new,this,super,extends,import,export,async,await</keywords>
+                    <builtin_objects>console,window,document,Array,Object,String,Number,Boolean,Date,Math,JSON,Promise,RegExp</builtin_objects>
+                </language>
+                
+                <language id="typescript" name="TypeScript" extensions=".ts,.tsx">
+                    <keywords>var,let,const,function,class,interface,type,enum,namespace,module,if,else,for,while,do,switch,case,default,try,catch,finally,return,break,continue,throw,new,this,super,extends,implements,import,export,async,await,public,private,protected,readonly,static,abstract</keywords>
+                    <types>string,number,boolean,any,void,null,undefined,never,object,symbol,bigint</types>
+                </language>
+                
+                <language id="html" name="HTML" extensions=".html,.htm,.xhtml">
+                    <tags>html,head,title,meta,link,style,script,body,div,span,p,h1,h2,h3,h4,h5,h6,a,img,ul,ol,li,table,tr,td,th,form,input,button,textarea,select,option</tags>
+                    <attributes>id,class,style,src,href,alt,title,name,value,type,placeholder,required,disabled,readonly</attributes>
+                </language>
+                
+                <language id="css" name="CSS" extensions=".css,.scss,.sass,.less">
+                    <properties>color,background,font,margin,padding,border,width,height,display,position,top,left,right,bottom,float,clear,overflow,text-align,text-decoration,font-size,font-weight,line-height</properties>
+                    <selectors>element,class,id,attribute,pseudo-class,pseudo-element</selectors>
+                </language>
+            </supported_languages>
+            
+            <themes>
+                <theme id="dark" name="暗色主题" default="true">
+                    <colors>
+                        <background>#2b2b2b</background>
+                        <foreground>#ffffff</foreground>
+                        <keyword>#569cd6</keyword>
+                        <string>#ce9178</string>
+                        <comment>#6a9955</comment>
+                        <number>#b5cea8</number>
+                        <function>#dcdcaa</function>
+                    </colors>
+                </theme>
+                
+                <theme id="light" name="亮色主题">
+                    <colors>
+                        <background>#ffffff</background>
+                        <foreground>#000000</foreground>
+                        <keyword>#0000ff</keyword>
+                        <string>#a31515</string>
+                        <comment>#008000</comment>
+                        <number>#098658</number>
+                        <function>#795e26</function>
+                    </colors>
+                </theme>
+            </themes>
+        </syntax_highlighting>
+        
+        <!-- 文件操作 -->
+        <file_operations>
+            <templates>
+                <template id="python" name="Python脚本" extension=".py">
+                    <content><![CDATA[#!/usr/bin/env python3
+"""
+文件描述
+
+作者: Your Name
+创建时间: ${DATE}
+"""
+
+
+def main():
+    """主函数"""
+    print("Hello, Python!")
+
+
+if __name__ == "__main__":
+    main()
+]]></content>
+                </template>
+                
+                <template id="html" name="HTML文档" extension=".html">
+                    <content><![CDATA[<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文档标题</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <h1>欢迎使用 Chango Lite</h1>
+    <p>这是一个HTML模板文件。</p>
+    
+    <script>
+        console.log('HTML模板加载完成');
+    </script>
+</body>
+</html>
+]]></content>
+                </template>
+            </templates>
+            
+            <auto_save enabled="false" interval_seconds="300"/>
+            <backup enabled="true" max_backups="5"/>
+            <recent_files max_count="10"/>
+        </file_operations>
+        
+        <!-- 编辑器设置 -->
+        <editor_settings>
+            <display>
+                <line_numbers enabled="true"/>
+                <word_wrap enabled="false"/>
+                <whitespace_visible enabled="false"/>
+                <indent_guides enabled="true"/>
+                <current_line_highlight enabled="true"/>
+                <bracket_matching enabled="true"/>
+            </display>
+            
+            <editing>
+                <auto_indent enabled="true"/>
+                <tab_size>4</tab_size>
+                <use_spaces enabled="true"/>
+                <trim_whitespace enabled="true"/>
+                <auto_close_brackets enabled="true"/>
+                <auto_close_quotes enabled="true"/>
+            </editing>
+            
+            <font family="Consolas" size="12" weight="normal"/>
+            
+            <colors theme="dark">
+                <background>#2b2b2b</background>
+                <foreground>#ffffff</foreground>
+                <selection>#0078d4</selection>
+                <line_highlight>#3c3c3c</line_highlight>
+                <gutter>#555555</gutter>
+            </colors>
+        </editor_settings>
+    </features>
+    
+    <!-- 配置设置 -->
+    <configuration>
+        <!-- 用户界面 -->
+        <ui theme="dark">
+            <window width="1200" height="800" maximized="false">
+                <remember_size>true</remember_size>
+                <remember_position>true</remember_position>
+                <center_on_startup>true</center_on_startup>
+            </window>
+            
+            <panels>
+                <file_explorer visible="true" width="250" position="left"/>
+                <output visible="false" height="200" position="bottom"/>
+                <minimap visible="true" width="120" position="right"/>
+                <search visible="false" height="40" position="top"/>
+            </panels>
+            
+            <toolbar visible="true">
+                <items>
+                    <item id="new" icon="new.png" tooltip="新建文件"/>
+                    <item id="open" icon="open.png" tooltip="打开文件"/>
+                    <item id="save" icon="save.png" tooltip="保存文件"/>
+                    <separator/>
+                    <item id="undo" icon="undo.png" tooltip="撤销"/>
+                    <item id="redo" icon="redo.png" tooltip="重做"/>
+                    <separator/>
+                    <item id="find" icon="find.png" tooltip="查找"/>
+                    <item id="replace" icon="replace.png" tooltip="替换"/>
+                </items>
+            </toolbar>
+            
+            <status_bar visible="true">
+                <items>
+                    <item id="line_column" format="行 ${LINE}, 列 ${COLUMN}"/>
+                    <item id="selection_count" format="选中 ${COUNT} 个字符"/>
+                    <item id="file_encoding" format="编码: ${ENCODING}"/>
+                    <item id="file_type" format="类型: ${TYPE}"/>
+                    <item id="file_size" format="大小: ${SIZE}"/>
+                </items>
+            </status_bar>
+        </ui>
+        
+        <!-- 性能设置 -->
+        <performance>
+            <limits>
+                <large_file_threshold>10485760</large_file_threshold> <!-- 10MB -->
+                <syntax_highlighting_limit>1048576</syntax_highlighting_limit> <!-- 1MB -->
+                <undo_limit>1000</undo_limit>
+                <memory_limit_mb>512</memory_limit_mb>
+            </limits>
+            
+            <optimization>
+                <lazy_loading enabled="true"/>
+                <virtual_scrolling enabled="true"/>
+                <incremental_highlighting enabled="true"/>
+                <smart_caching enabled="true"/>
+            </optimization>
+        </performance>
+        
+        <!-- 快捷键 -->
+        <shortcuts>
+            <category name="文件">
+                <shortcut action="new" key="Ctrl+N" description="新建文件"/>
+                <shortcut action="open" key="Ctrl+O" description="打开文件"/>
+                <shortcut action="save" key="Ctrl+S" description="保存文件"/>
+                <shortcut action="save_as" key="Ctrl+Shift+S" description="另存为"/>
+                <shortcut action="close" key="Ctrl+W" description="关闭文件"/>
+                <shortcut action="exit" key="Ctrl+Q" description="退出程序"/>
+            </category>
+            
+            <category name="编辑">
+                <shortcut action="undo" key="Ctrl+Z" description="撤销"/>
+                <shortcut action="redo" key="Ctrl+Y" description="重做"/>
+                <shortcut action="cut" key="Ctrl+X" description="剪切"/>
+                <shortcut action="copy" key="Ctrl+C" description="复制"/>
+                <shortcut action="paste" key="Ctrl+V" description="粘贴"/>
+                <shortcut action="select_all" key="Ctrl+A" description="全选"/>
+            </category>
+            
+            <category name="搜索">
+                <shortcut action="find" key="Ctrl+F" description="查找"/>
+                <shortcut action="replace" key="Ctrl+H" description="替换"/>
+                <shortcut action="find_next" key="F3" description="查找下一个"/>
+                <shortcut action="find_previous" key="Shift+F3" description="查找上一个"/>
+            </category>
+            
+            <category name="视图">
+                <shortcut action="zoom_in" key="Ctrl++" description="放大"/>
+                <shortcut action="zoom_out" key="Ctrl+-" description="缩小"/>
+                <shortcut action="zoom_reset" key="Ctrl+0" description="重置缩放"/>
+                <shortcut action="fullscreen" key="F11" description="全屏模式"/>
+            </category>
+        </shortcuts>
+    </configuration>
+    
+    <!-- 扩展信息 -->
+    <extensions>
+        <available>
+            <extension id="git-integration" name="Git集成" version="1.0.0" enabled="false">
+                <description>提供Git版本控制支持，包括状态显示、分支管理、提交历史等功能</description>
+                <author>Chango Team</author>
+                <homepage>https://changoeditor.com/extensions/git</homepage>
+                <download_url>https://api.changoeditor.com/v1/extensions/git-integration/download</download_url>
+            </extension>
+            
+            <extension id="code-formatter" name="代码格式化" version="1.0.0" enabled="false">
+                <description>自动格式化代码，支持多种编程语言的代码风格</description>
+                <author>Chango Team</author>
+                <homepage>https://changoeditor.com/extensions/formatter</homepage>
+                <download_url>https://api.changoeditor.com/v1/extensions/code-formatter/download</download_url>
+            </extension>
+        </available>
+    </extensions>
+    
+    <!-- 构建信息 -->
+    <build_info>
+        <version>0.1.0</version>
+        <build_number>12</build_number>
+        <commit_hash>a1b2c3d4e5f6</commit_hash>
+        <build_date>2024-01-15T08:00:00Z</build_date>
+        <compiler>Python 3.11.0</compiler>
+        <framework>PyQt6 6.6.0</framework>
+        <platform>Windows 10</platform>
+    </build_info>
+    
+</changoeditor>

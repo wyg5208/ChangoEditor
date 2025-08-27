@@ -1,0 +1,299 @@
+{
+  "project": {
+    "name": "Chango Editor",
+    "version": "0.1.0",
+    "description": "一个功能强大的轻量级代码编辑器",
+    "author": "Chango Team",
+    "license": "MIT",
+    "homepage": "https://github.com/chango_editor/chango_editor-lite",
+    "keywords": [
+      "editor",
+      "code",
+      "programming",
+      "python",
+      "qt6"
+    ],
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-15T12:30:45Z",
+    "active": true,
+    "beta": false
+  },
+  "dependencies": {
+    "required": {
+      "PyQt6": ">=6.6.0",
+      "Pygments": ">=2.17.0",
+      "watchdog": ">=3.0.0",
+      "chardet": ">=5.2.0"
+    },
+    "optional": {
+      "gitpython": ">=3.1.0"
+    }
+  },
+  "features": {
+    "syntax_highlighting": {
+      "enabled": true,
+      "supported_languages": [
+        "python",
+        "javascript",
+        "typescript",
+        "html",
+        "css",
+        "cpp",
+        "c",
+        "java",
+        "csharp",
+        "php",
+        "ruby",
+        "go",
+        "rust",
+        "sql",
+        "json",
+        "xml",
+        "markdown"
+      ],
+      "themes": [
+        "dark",
+        "light",
+        "monokai",
+        "solarized"
+      ]
+    },
+    "file_operations": {
+      "templates": {
+        "python": {
+          "extension": ".py",
+          "template": "#!/usr/bin/env python3\n\ndef main():\n    pass\n\nif __name__ == '__main__':\n    main()",
+          "description": "Python脚本模板"
+        },
+        "javascript": {
+          "extension": ".js",
+          "template": "'use strict';\n\nfunction main() {\n    console.log('Hello, World!');\n}\n\nmain();",
+          "description": "JavaScript脚本模板"
+        },
+        "html": {
+          "extension": ".html",
+          "template": "<!DOCTYPE html>\n<html>\n<head>\n    <title>Document</title>\n</head>\n<body>\n    <h1>Hello, World!</h1>\n</body>\n</html>",
+          "description": "HTML文档模板"
+        }
+      },
+      "auto_save": {
+        "enabled": false,
+        "interval_seconds": 300
+      },
+      "backup": {
+        "enabled": true,
+        "max_backups": 5
+      }
+    },
+    "editor": {
+      "line_numbers": true,
+      "word_wrap": false,
+      "auto_indent": true,
+      "tab_size": 4,
+      "use_spaces": true,
+      "show_whitespace": false,
+      "font": {
+        "family": "Consolas",
+        "size": 12,
+        "weight": "normal"
+      },
+      "colors": {
+        "background": "#2b2b2b",
+        "foreground": "#ffffff",
+        "selection": "#0078d4",
+        "line_highlight": "#3c3c3c",
+        "gutter": "#555555"
+      }
+    },
+    "search_replace": {
+      "case_sensitive": false,
+      "whole_words": false,
+      "regex_enabled": true,
+      "highlight_matches": true,
+      "max_results": 1000
+    }
+  },
+  "ui": {
+    "theme": "dark",
+    "window": {
+      "width": 1200,
+      "height": 800,
+      "maximized": false,
+      "remember_size": true,
+      "remember_position": true
+    },
+    "panels": {
+      "file_explorer": {
+        "visible": true,
+        "width": 250,
+        "position": "left"
+      },
+      "output": {
+        "visible": false,
+        "height": 200,
+        "position": "bottom"
+      },
+      "minimap": {
+        "visible": true,
+        "width": 120,
+        "position": "right"
+      }
+    },
+    "toolbar": {
+      "visible": true,
+      "items": [
+        "new",
+        "open",
+        "save",
+        "separator",
+        "undo",
+        "redo",
+        "separator",
+        "find",
+        "replace"
+      ]
+    },
+    "status_bar": {
+      "visible": true,
+      "items": [
+        "line_column",
+        "selection_count",
+        "file_encoding",
+        "file_type",
+        "file_size"
+      ]
+    }
+  },
+  "performance": {
+    "large_file_threshold": 10485760,
+    "syntax_highlighting_limit": 1048576,
+    "undo_limit": 1000,
+    "memory_limit_mb": 512
+  },
+  "extensions": {
+    "enabled": [],
+    "available": [
+      {
+        "id": "git-integration",
+        "name": "Git集成",
+        "version": "1.0.0",
+        "description": "提供Git版本控制支持",
+        "enabled": false
+      },
+      {
+        "id": "code-formatter",
+        "name": "代码格式化",
+        "version": "1.0.0",
+        "description": "自动格式化代码",
+        "enabled": false
+      },
+      {
+        "id": "terminal",
+        "name": "集成终端",
+        "version": "1.0.0",
+        "description": "内置终端支持",
+        "enabled": false
+      }
+    ]
+  },
+  "recent_files": [
+    {
+      "path": "/home/user/projects/myapp/main.py",
+      "last_opened": "2024-01-15T10:30:00Z",
+      "line": 42,
+      "column": 16
+    },
+    {
+      "path": "/home/user/projects/myapp/utils.py",
+      "last_opened": "2024-01-15T09:15:30Z",
+      "line": 1,
+      "column": 1
+    },
+    {
+      "path": "/home/user/documents/readme.md",
+      "last_opened": "2024-01-14T16:45:12Z",
+      "line": 23,
+      "column": 8
+    }
+  ],
+  "statistics": {
+    "total_launches": 127,
+    "total_runtime_hours": 45.5,
+    "files_opened": 356,
+    "lines_written": 12849,
+    "characters_typed": 485732,
+    "most_used_language": "python",
+    "avg_session_duration_minutes": 32.7
+  },
+  "shortcuts": {
+    "file": {
+      "new": "Ctrl+N",
+      "open": "Ctrl+O",
+      "save": "Ctrl+S",
+      "save_as": "Ctrl+Shift+S",
+      "close": "Ctrl+W",
+      "exit": "Ctrl+Q"
+    },
+    "edit": {
+      "undo": "Ctrl+Z",
+      "redo": "Ctrl+Y",
+      "cut": "Ctrl+X",
+      "copy": "Ctrl+C",
+      "paste": "Ctrl+V",
+      "select_all": "Ctrl+A"
+    },
+    "search": {
+      "find": "Ctrl+F",
+      "replace": "Ctrl+H",
+      "find_next": "F3",
+      "find_previous": "Shift+F3"
+    },
+    "view": {
+      "zoom_in": "Ctrl++",
+      "zoom_out": "Ctrl+-",
+      "zoom_reset": "Ctrl+0",
+      "fullscreen": "F11"
+    },
+    "tabs": {
+      "next_tab": "Ctrl+Tab",
+      "previous_tab": "Ctrl+Shift+Tab",
+      "close_tab": "Ctrl+W",
+      "new_tab": "Ctrl+T"
+    }
+  },
+  "localization": {
+    "current_language": "zh-CN",
+    "available_languages": [
+      {
+        "code": "zh-CN",
+        "name": "简体中文",
+        "native_name": "简体中文"
+      },
+      {
+        "code": "en-US",
+        "name": "English",
+        "native_name": "English"
+      },
+      {
+        "code": "ja-JP",
+        "name": "Japanese",
+        "native_name": "日本語"
+      }
+    ]
+  },
+  "api_endpoints": {
+    "check_updates": "https://api.chango_editor.com/v1/updates",
+    "download_extensions": "https://api.chango_editor.com/v1/extensions",
+    "user_feedback": "https://api.chango_editor.com/v1/feedback",
+    "documentation": "https://docs.chango_editor.com"
+  },
+  "build_info": {
+    "version": "0.1.0",
+    "build_number": 12,
+    "commit_hash": "a1b2c3d4e5f6",
+    "build_date": "2024-01-15T08:00:00Z",
+    "python_version": "3.11.0",
+    "qt_version": "6.6.0",
+    "platform": "win32"
+  }
+}

@@ -1,0 +1,582 @@
+# Chango Editor YAML配置文件
+# 展示YAML语法结构和各种数据类型
+
+# 项目信息
+project:
+  name: "Chango Lite"
+  version: "0.1.0"
+  description: |
+    一个功能强大的轻量级代码编辑器，
+    支持多种编程语言的语法高亮、
+    智能代码补全、文件管理等功能。
+  
+  # 项目元数据
+  metadata:
+    author: "Chango Team"
+    email: "team@chango_editor.com"
+    license: "MIT"
+    homepage: "https://github.com/chango_editor/chango_editor-lite"
+    repository: "https://github.com/chango_editor/chango_editor-lite.git"
+    documentation: "https://docs.chango_editor.com"
+    
+    # 标签
+    keywords:
+      - editor
+      - code
+      - programming
+      - python
+      - qt6
+      - syntax-highlighting
+    
+    # 支持平台
+    platforms:
+      - windows
+      - macos 
+      - linux
+    
+    # 发布信息
+    created_at: 2024-01-01T00:00:00Z
+    updated_at: 2024-01-15T12:30:45Z
+    
+    # 状态标志
+    active: true
+    beta: false
+    experimental: false
+
+# 依赖配置
+dependencies:
+  # 必需依赖
+  required:
+    PyQt6:
+      version: ">=6.6.0"
+      description: "跨平台GUI应用程序框架"
+      homepage: "https://www.riverbankcomputing.com/software/pyqt/"
+      critical: true
+      
+    Pygments:
+      version: ">=2.17.0" 
+      description: "通用语法高亮库"
+      homepage: "https://pygments.org/"
+      critical: true
+      
+    watchdog:
+      version: ">=3.0.0"
+      description: "文件系统事件监控"
+      homepage: "https://github.com/gorakhargosh/watchdog"
+      critical: false
+      
+    chardet:
+      version: ">=5.2.0"
+      description: "字符编码检测"
+      homepage: "https://github.com/chardet/chardet"
+      critical: false
+  
+  # 可选依赖
+  optional:
+    gitpython:
+      version: ">=3.1.0"
+      description: "Git版本控制集成"
+      homepage: "https://github.com/gitpython-developers/GitPython"
+      enable_by_default: false
+      
+    pylsp:
+      version: ">=1.7.0"
+      description: "Python Language Server Protocol"
+      homepage: "https://github.com/python-lsp/python-lsp-server"
+      enable_by_default: false
+
+# 功能特性配置
+features:
+  # 语法高亮
+  syntax_highlighting:
+    enabled: true
+    engine: "pygments"
+    fallback_engine: "regex"
+    
+    # 支持的语言
+    supported_languages:
+      python:
+        extensions: [".py", ".pyw", ".pyx"]
+        lexer: "python"
+        comment_style: "#"
+        block_comment: ['"""', '"""']
+        keywords:
+          - def
+          - class
+          - if
+          - else
+          - elif
+          - for
+          - while
+          - try
+          - except
+          - finally
+          - import
+          - from
+          - as
+          - with
+          - lambda
+          - yield
+          - return
+          - pass
+          - break
+          - continue
+      
+      javascript:
+        extensions: [".js", ".jsx"]
+        lexer: "javascript"
+        comment_style: "//"
+        block_comment: ["/*", "*/"]
+        keywords:
+          - var
+          - let
+          - const
+          - function
+          - class
+          - if
+          - else
+          - for
+          - while
+          - do
+          - switch
+          - case
+          - default
+          - try
+          - catch
+          - finally
+          - return
+          - break
+          - continue
+          - throw
+          - new
+          - this
+          - super
+          - extends
+          - import
+          - export
+          - async
+          - await
+      
+      typescript:
+        extensions: [".ts", ".tsx"]
+        lexer: "typescript"
+        comment_style: "//"
+        block_comment: ["/*", "*/"]
+        additional_keywords:
+          - interface
+          - type
+          - enum
+          - namespace
+          - module
+          - public
+          - private
+          - protected
+          - readonly
+          - static
+          - abstract
+    
+    # 主题配置
+    themes:
+      dark:
+        name: "暗色主题"
+        default: true
+        colors:
+          background: "#2b2b2b"
+          foreground: "#ffffff"
+          keyword: "#569cd6"
+          string: "#ce9178"
+          comment: "#6a9955"
+          number: "#b5cea8"
+          function: "#dcdcaa"
+          class: "#4ec9b0"
+          variable: "#9cdcfe"
+      
+      light:
+        name: "亮色主题"
+        default: false
+        colors:
+          background: "#ffffff"
+          foreground: "#000000"
+          keyword: "#0000ff"
+          string: "#a31515"
+          comment: "#008000"
+          number: "#098658"
+          function: "#795e26"
+          class: "#267f99"
+          variable: "#001080"
+
+  # 文件操作
+  file_operations:
+    # 自动保存
+    auto_save:
+      enabled: false
+      interval_seconds: 300
+      save_on_focus_lost: true
+      
+    # 备份
+    backup:
+      enabled: true
+      max_backups: 5
+      backup_extension: ".bak"
+      backup_directory: ".chango_editor_backups"
+      
+    # 最近文件
+    recent_files:
+      max_count: 10
+      persist_across_sessions: true
+      
+    # 文件模板
+    templates:
+      python:
+        extension: ".py"
+        description: "Python脚本模板"
+        template: |
+          #!/usr/bin/env python3
+          """
+          文件描述
+          
+          作者: ${AUTHOR}
+          创建时间: ${DATE}
+          """
+          
+          
+          def main():
+              """主函数"""
+              print("Hello, Python!")
+          
+          
+          if __name__ == "__main__":
+              main()
+      
+      javascript:
+        extension: ".js"
+        description: "JavaScript脚本模板"
+        template: |
+          /**
+           * 文件描述
+           * 
+           * @author ${AUTHOR}
+           * @date ${DATE}
+           */
+          
+          'use strict';
+          
+          function main() {
+              console.log('Hello, JavaScript!');
+          }
+          
+          main();
+
+  # 编辑器设置
+  editor:
+    # 显示设置
+    display:
+      line_numbers: true
+      word_wrap: false
+      whitespace_visible: false
+      indent_guides: true
+      current_line_highlight: true
+      bracket_matching: true
+      minimap: false
+      
+    # 编辑设置
+    editing:
+      auto_indent: true
+      tab_size: 4
+      use_spaces: true
+      trim_whitespace: true
+      auto_close_brackets: true
+      auto_close_quotes: true
+      smart_home: true
+      
+    # 字体设置
+    font:
+      family: "Consolas"
+      size: 12
+      weight: "normal"
+      fallback_fonts:
+        - "Monaco"
+        - "Menlo"
+        - "Courier New"
+        - "monospace"
+      
+    # 性能设置
+    performance:
+      large_file_threshold: 10485760  # 10MB
+      syntax_highlighting_limit: 1048576  # 1MB
+      undo_limit: 1000
+      memory_limit_mb: 512
+
+# 用户界面配置
+ui:
+  # 主题
+  theme: "dark"
+  
+  # 窗口设置
+  window:
+    width: 1200
+    height: 800
+    maximized: false
+    center_on_startup: true
+    remember_size: true
+    remember_position: true
+    minimum_width: 800
+    minimum_height: 600
+  
+  # 面板配置
+  panels:
+    file_explorer:
+      visible: true
+      width: 250
+      position: "left"
+      show_hidden_files: false
+      
+    output:
+      visible: false
+      height: 200
+      position: "bottom"
+      
+    minimap:
+      visible: true
+      width: 120
+      position: "right"
+      
+    search:
+      visible: false
+      height: 40
+      position: "top"
+  
+  # 工具栏
+  toolbar:
+    visible: true
+    icon_size: 24
+    show_text: false
+    items:
+      - id: "new"
+        icon: "new.png"
+        tooltip: "新建文件"
+        shortcut: "Ctrl+N"
+      - type: "separator"
+      - id: "open"
+        icon: "open.png"
+        tooltip: "打开文件"
+        shortcut: "Ctrl+O"
+      - id: "save"
+        icon: "save.png"
+        tooltip: "保存文件"
+        shortcut: "Ctrl+S"
+      - type: "separator"
+      - id: "undo"
+        icon: "undo.png"
+        tooltip: "撤销"
+        shortcut: "Ctrl+Z"
+      - id: "redo"
+        icon: "redo.png"
+        tooltip: "重做"
+        shortcut: "Ctrl+Y"
+  
+  # 状态栏
+  status_bar:
+    visible: true
+    height: 24
+    items:
+      - id: "line_column"
+        format: "行 ${LINE}, 列 ${COLUMN}"
+        min_width: 120
+      - id: "selection_count"
+        format: "选中 ${COUNT} 个字符"
+        min_width: 100
+      - id: "file_encoding"
+        format: "${ENCODING}"
+        min_width: 60
+      - id: "file_type"
+        format: "${TYPE}"
+        min_width: 80
+      - id: "file_size"
+        format: "${SIZE}"
+        min_width: 80
+
+# 快捷键配置
+shortcuts:
+  # 文件操作
+  file:
+    new: "Ctrl+N"
+    open: "Ctrl+O"
+    save: "Ctrl+S"
+    save_as: "Ctrl+Shift+S"
+    close: "Ctrl+W"
+    close_all: "Ctrl+Shift+W"
+    exit: "Ctrl+Q"
+    
+  # 编辑操作
+  edit:
+    undo: "Ctrl+Z"
+    redo: "Ctrl+Y"
+    cut: "Ctrl+X"
+    copy: "Ctrl+C"
+    paste: "Ctrl+V"
+    select_all: "Ctrl+A"
+    duplicate_line: "Ctrl+D"
+    delete_line: "Ctrl+Shift+K"
+    
+  # 搜索操作
+  search:
+    find: "Ctrl+F"
+    replace: "Ctrl+H"
+    find_next: "F3"
+    find_previous: "Shift+F3"
+    find_in_files: "Ctrl+Shift+F"
+    
+  # 视图操作
+  view:
+    zoom_in: "Ctrl+="
+    zoom_out: "Ctrl+-"
+    zoom_reset: "Ctrl+0"
+    fullscreen: "F11"
+    toggle_file_explorer: "Ctrl+Shift+E"
+    toggle_output: "Ctrl+`"
+    
+  # 标签页操作
+  tabs:
+    next_tab: "Ctrl+Tab"
+    previous_tab: "Ctrl+Shift+Tab"
+    close_tab: "Ctrl+W"
+    new_tab: "Ctrl+T"
+    reopen_closed_tab: "Ctrl+Shift+T"
+
+# 扩展配置
+extensions:
+  # 扩展目录
+  directory: "~/.chango_editor/extensions"
+  
+  # 已启用的扩展
+  enabled: []
+  
+  # 可用的扩展
+  available:
+    git_integration:
+      name: "Git集成"
+      version: "1.0.0"
+      description: "提供Git版本控制支持"
+      author: "Chango Team"
+      homepage: "https://chango_editor.com/extensions/git"
+      enabled: false
+      settings:
+        show_git_status: true
+        auto_fetch: false
+        commit_template: |
+          feat: 
+          
+          # 请输入提交说明
+          # 使用现在时: "add feature" 而不是 "added feature"
+          # 第一行不超过50个字符
+          # 详细说明请在下方编写
+    
+    code_formatter:
+      name: "代码格式化"
+      version: "1.0.0" 
+      description: "自动格式化代码"
+      author: "Chango Team"
+      homepage: "https://chango_editor.com/extensions/formatter"
+      enabled: false
+      settings:
+        format_on_save: false
+        formatters:
+          python: "black"
+          javascript: "prettier"
+          typescript: "prettier"
+          
+    terminal:
+      name: "集成终端"
+      version: "1.0.0"
+      description: "内置终端支持"
+      author: "Chango Team"
+      homepage: "https://chango_editor.com/extensions/terminal"
+      enabled: false
+      settings:
+        shell: "auto"  # auto, bash, zsh, cmd, powershell
+        startup_directory: "current_file"
+        font_size: 12
+
+# 本地化配置
+localization:
+  current_language: "zh-CN"
+  fallback_language: "en-US"
+  
+  available_languages:
+    - code: "zh-CN"
+      name: "简体中文"
+      native_name: "简体中文"
+      rtl: false
+      
+    - code: "en-US"
+      name: "English"
+      native_name: "English"
+      rtl: false
+      
+    - code: "ja-JP"
+      name: "Japanese"
+      native_name: "日本語"
+      rtl: false
+
+# 性能配置
+performance:
+  # 内存限制
+  memory:
+    max_usage_mb: 512
+    gc_threshold: 80  # 百分比
+    
+  # 文件处理
+  file_processing:
+    max_file_size_mb: 100
+    chunk_size_kb: 64
+    parallel_processing: true
+    worker_threads: 4
+    
+  # 渲染优化
+  rendering:
+    use_hardware_acceleration: true
+    vsync: true
+    fps_limit: 60
+    smooth_scrolling: true
+
+# 日志配置
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  file: "~/.chango_editor/logs/chango_editor.log"
+  max_size_mb: 10
+  backup_count: 5
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+  # 模块日志级别
+  modules:
+    syntax: "DEBUG"
+    ui: "INFO" 
+    file_operations: "INFO"
+    performance: "WARNING"
+
+# 更新配置
+updates:
+  auto_check: true
+  check_interval_hours: 24
+  include_beta: false
+  update_url: "https://api.chango_editor.com/v1/updates"
+  
+# 统计配置
+analytics:
+  enabled: false  # 用户可选择是否启用
+  anonymous: true
+  endpoint: "https://api.chango_editor.com/v1/analytics"
+
+# 开发配置
+development:
+  debug_mode: false
+  show_debug_info: false
+  enable_hot_reload: false
+  profiling: false
+  
+  # 实验性功能
+  experimental_features:
+    ai_completion: false
+    collaborative_editing: false
+    cloud_sync: false

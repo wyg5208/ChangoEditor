@@ -1,0 +1,41 @@
+安装完成！
+
+恭喜您成功安装了 Chango Editor v1.0.0！
+
+接下来您可以：
+
+📝 立即开始使用：
+• 点击"完成"后选择启动 Chango Editor
+• 或从开始菜单启动：开始 → 所有程序 → Chango Editor
+
+🎯 快速上手：
+• 查看安装目录中的示例文件
+• 阅读 README.txt 了解详细功能
+• 尝试切换暗色/亮色主题：菜单 → 主题
+
+🔧 高级功能：
+• 使用 Ctrl+F 进行文件内搜索
+• 使用 Ctrl+H 进行查找替换
+• 拖拽文件到编辑器中快速打开
+• 支持多标签页同时编辑多个文件
+
+📂 文件关联：
+如果您在安装时选择了文件关联，现在可以：
+• 右键点击 .py、.js 等代码文件
+• 选择"打开方式" → "Chango Editor"
+
+🆘 获取帮助：
+• 访问项目主页：https://github.com/aweng1977/chango/chango-editor
+• 报告问题：https://github.com/aweng1977/chango/chango-editor/issues
+• 查看更新：https://github.com/aweng1977/chango/chango-editor/releases
+
+💝 感谢使用：
+感谢您选择 Chango Editor！我们致力于为开发者提供最佳的代码编辑体验。
+
+如果您觉得好用，欢迎：
+• 给项目点个 Star ⭐
+• 分享给其他开发者
+• 提供反馈和建议
+
+享受编码的乐趣！🚀
+
