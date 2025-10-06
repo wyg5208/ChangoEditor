@@ -1,0 +1,31 @@
+{
+  "name": "Deep Blue Theme",
+  "description": "Chango Editor 深蓝色主题 - 专业沉稳的蓝色基调",
+  "colors": {
+    "background": "#0d1f2d",
+    "foreground": "#e0e6f1",
+    "selection": "#1e4d7b",
+    "line_highlight": "#163450",
+    "line_number_background": "#1a3a52",
+    "line_number_foreground": "#7ba3cc",
+    "menu_background": "#1a3a52",
+    "menu_foreground": "#e0e6f1",
+    "toolbar_background": "#1a3a52",
+    "toolbar_foreground": "#64b5f6",
+    "statusbar_background": "#1a3a52",
+    "statusbar_foreground": "#e0e6f1"
+  },
+  "syntax": {
+    "keyword": "#64b5f6",
+    "string": "#80cbc4",
+    "comment": "#546e7a",
+    "number": "#81c784",
+    "function": "#ffb74d",
+    "class": "#4fc3f7",
+    "operator": "#e0e6f1",
+    "builtin": "#64b5f6",
+    "error": "#ef5350",
+    "decorator": "#ffd54f"
+  }
+}
+

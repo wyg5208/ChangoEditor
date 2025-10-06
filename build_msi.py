@@ -17,11 +17,11 @@ import subprocess
 from cx_Freeze import setup, Executable
 
 # 应用信息
-APP_NAME = "Chango Editor"
-APP_VERSION = "1.0.0"
-APP_DESCRIPTION = "功能强大的代码编辑器"
+APP_NAME = "ChangoEditor"
+APP_VERSION = "1.3.4"
+APP_DESCRIPTION = "功能强大的代码编辑器 - 支持20+语言，7个精美主题"
 APP_AUTHOR = "Chango Team"
-APP_URL = "https://github.com/aweng1977/chango/chango-editor"
+APP_URL = "https://github.com/wyg5208/ChangoEditor"
 
 def get_icon_path():
     """获取图标文件路径"""
@@ -85,7 +85,6 @@ build_exe_options = {
     "include_files": include_files,
     "build_exe": "build/exe",
     "optimize": 2,
-    "include_msvcrt": True,
 }
 
 # MSI选项

@@ -1,0 +1,31 @@
+{
+  "name": "Monokai Theme",
+  "description": "Chango Editor Monokai主题 - 经典高对比度配色",
+  "colors": {
+    "background": "#272822",
+    "foreground": "#f8f8f2",
+    "selection": "#49483e",
+    "line_highlight": "#3e3d32",
+    "line_number_background": "#3c3b32",
+    "line_number_foreground": "#90908a",
+    "menu_background": "#3c3b32",
+    "menu_foreground": "#f8f8f2",
+    "toolbar_background": "#3c3b32",
+    "toolbar_foreground": "#a6e22e",
+    "statusbar_background": "#3c3b32",
+    "statusbar_foreground": "#f8f8f2"
+  },
+  "syntax": {
+    "keyword": "#f92672",
+    "string": "#e6db74",
+    "comment": "#75715e",
+    "number": "#ae81ff",
+    "function": "#a6e22e",
+    "class": "#66d9ef",
+    "operator": "#f8f8f2",
+    "builtin": "#66d9ef",
+    "error": "#f92672",
+    "decorator": "#fd971f"
+  }
+}
+

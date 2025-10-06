@@ -7,10 +7,11 @@
 import os
 from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QTreeWidget, QTreeWidgetItem,
-    QMenu, QMessageBox, QInputDialog, QLineEdit, QLabel, QPushButton
+    QMenu, QMessageBox, QInputDialog, QLineEdit, QLabel, QPushButton, QScrollArea
 )
-from PyQt6.QtCore import Qt, pyqtSignal
+from PyQt6.QtCore import Qt, pyqtSignal, QSize
 from PyQt6.QtGui import QAction, QFont
+from utils.icon_provider import Icons
 
 
 class FileExplorer(QWidget):
@@ -42,14 +43,22 @@ class FileExplorer(QWidget):
         layout = QVBoxLayout()
         layout.setContentsMargins(5, 5, 5, 5)
         
-        # 当前路径标签
+        # 当前路径标签 - 使用可滚动区域
         self.path_label = QLabel()
-        self.path_label.setWordWrap(True)
-        self.path_label.setMaximumHeight(60)  # 增加高度支持换行
-        self.path_label.setMinimumHeight(20)  # 设置最小高度
-        self.path_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
-        self.path_label.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)  # 支持鼠标选择
-        layout.addWidget(self.path_label)
+        self.path_label.setWordWrap(False)  # 不换行，使用横向滚动
+        self.path_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+        self.path_label.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
+        
+        # 创建滚动区域 - 增加高度避免滚动条遮挡文字
+        path_scroll = QScrollArea()
+        path_scroll.setWidget(self.path_label)
+        path_scroll.setWidgetResizable(True)
+        path_scroll.setMaximumHeight(45)  # 从30增加到45 (50%增幅)
+        path_scroll.setMinimumHeight(45)
+        path_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
+        path_scroll.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        path_scroll.setFrameShape(QScrollArea.Shape.StyledPanel)
+        layout.addWidget(path_scroll)
         
         # 按钮容器
         button_layout = QHBoxLayout()
@@ -59,7 +68,9 @@ class FileExplorer(QWidget):
         button_layout.setSpacing(5)  # 按钮间距
         
         # 上级目录按钮
-        self.up_button = QPushButton("⬆️")
+        self.up_button = QPushButton()
+        self.up_button.setIcon(Icons.LEVEL_UP)
+        self.up_button.setIconSize(QSize(18, 18))
         self.up_button.setMaximumHeight(25)
         self.up_button.setMaximumWidth(30)
         self.up_button.setToolTip("上级目录")
@@ -67,7 +78,9 @@ class FileExplorer(QWidget):
         button_layout.addWidget(self.up_button)
         
         # 刷新按钮
-        self.refresh_button = QPushButton("🔄")
+        self.refresh_button = QPushButton()
+        self.refresh_button.setIcon(Icons.SYNC)
+        self.refresh_button.setIconSize(QSize(18, 18))
         self.refresh_button.setMaximumHeight(25)
         self.refresh_button.setMaximumWidth(30)
         self.refresh_button.setToolTip("刷新文件列表")
@@ -78,7 +91,9 @@ class FileExplorer(QWidget):
         button_layout.addSpacing(10)
         
         # 展开全部按钮
-        self.expand_all_button = QPushButton("⬇️")
+        self.expand_all_button = QPushButton()
+        self.expand_all_button.setIcon(Icons.ANGLE_DOUBLE_DOWN)
+        self.expand_all_button.setIconSize(QSize(18, 18))
         self.expand_all_button.setMaximumHeight(25)
         self.expand_all_button.setMaximumWidth(30)
         self.expand_all_button.setToolTip("展开全部文件夹")
@@ -86,7 +101,9 @@ class FileExplorer(QWidget):
         button_layout.addWidget(self.expand_all_button)
         
         # 收起全部按钮
-        self.collapse_all_button = QPushButton("⬆️")
+        self.collapse_all_button = QPushButton()
+        self.collapse_all_button.setIcon(Icons.ANGLE_DOUBLE_UP)
+        self.collapse_all_button.setIconSize(QSize(18, 18))
         self.collapse_all_button.setMaximumHeight(25)
         self.collapse_all_button.setMaximumWidth(30)
         self.collapse_all_button.setToolTip("收起全部文件夹")
@@ -259,15 +276,10 @@ class FileExplorer(QWidget):
         """刷新文件树"""
         self.file_tree.clear()
         
-        # 更新路径标签
-        # 为长路径设置省略显示和工具提示
-        display_path = self.root_path
-        if len(self.root_path) > 50:
-            # 如果路径太长，显示开头...结尾的形式
-            display_path = f"{self.root_path[:20]}...{self.root_path[-27:]}"
-        
-        self.path_label.setText(display_path)
-        self.path_label.setToolTip(f"当前路径: {self.root_path}")  # 悬浮显示完整路径
+        # 更新路径标签 - 显示完整路径，使用滚动条
+        self.path_label.setText(self.root_path)
+        self.path_label.setToolTip(f"当前路径: {self.root_path}")
+        self.path_label.adjustSize()  # 调整标签大小以适应内容
         
         try:
             # 创建根节点

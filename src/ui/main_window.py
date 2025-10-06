@@ -14,14 +14,14 @@ from PyQt6.QtWidgets import (
     QMenuBar, QToolBar, QStatusBar, QSplitter,
     QApplication, QMessageBox, QFileDialog
 )
-from PyQt6.QtCore import Qt, QTimer, pyqtSignal
+from PyQt6.QtCore import Qt, QTimer, pyqtSignal, QSize
 from PyQt6.QtGui import QAction, QIcon, QKeySequence, QFont
-from PyQt6.QtCore import QSize
 
 from core.editor import TextEditor
 from ui.tab_widget import TabWidget
 from utils.themes import ThemeManager
 from ui.file_explorer import FileExplorer
+from utils.icon_provider import Icons, IconProvider
 
 
 class MainWindow(QMainWindow):
@@ -44,6 +44,9 @@ class MainWindow(QMainWindow):
         # 设置应用图标
         self._set_window_icon()
         
+        # 初始化图标系统
+        self._init_icons()
+        
         # 初始化UI组件
         self._init_ui()
         self._create_menus()
@@ -61,6 +64,20 @@ class MainWindow(QMainWindow):
         self.last_opened_directory = os.getcwd()
         
         print("Chango Editor 主窗口初始化完成")
+    
+    def _init_icons(self):
+        """初始化图标系统"""
+        # 获取当前主题
+        theme = self.theme_manager.get_current_theme()
+        colors = theme.get("colors", {})
+        
+        # 根据主题选择图标颜色
+        icon_color = colors.get('foreground', '#ffffff')
+        
+        # 初始化图标集合（尺寸18x18）
+        Icons.init_icons(color=icon_color, size=18)
+        
+        print(f"图标系统已初始化 - 颜色: {icon_color}, 尺寸: 18x18")
     
     def _init_ui(self):
         """初始化用户界面"""
@@ -103,11 +120,18 @@ class MainWindow(QMainWindow):
         file_menu.addAction(new_action)
         
         # 打开文件
-        open_action = QAction("打开(&O)", self)
+        open_action = QAction("打开文件(&O)", self)
         open_action.setShortcut(QKeySequence.StandardKey.Open)
         open_action.setStatusTip("打开文件")
         open_action.triggered.connect(self.open_file)
         file_menu.addAction(open_action)
+        
+        # 打开文件夹
+        open_folder_action = QAction("打开文件夹(&F)", self)
+        open_folder_action.setShortcut(QKeySequence("Ctrl+Shift+O"))
+        open_folder_action.setStatusTip("打开文件夹")
+        open_folder_action.triggered.connect(self.open_folder)
+        file_menu.addAction(open_folder_action)
         
         file_menu.addSeparator()
         
@@ -264,57 +288,67 @@ class MainWindow(QMainWindow):
         help_menu.addAction(about_action)
     
     def _create_toolbar(self):
-        """创建工具栏"""
+        """创建工具栏 - 使用现代化SVG图标"""
         toolbar = QToolBar("主工具栏")
         self.addToolBar(toolbar)
         
-        # 设置图标大小
-        toolbar.setIconSize(QIcon().actualSize(QSize(20, 20)))
+        # 设置图标大小为18x18（适中清晰）
+        toolbar.setIconSize(QSize(18, 18))
+        
+        # 设置工具栏样式
+        toolbar.setMovable(False)
+        toolbar.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
         
         # 新建按钮
-        new_btn = toolbar.addAction("📄")
-        new_btn.setToolTip("新建 (Ctrl+N)")
+        new_btn = toolbar.addAction(Icons.FILE_NEW, "新建")
+        new_btn.setToolTip("新建文件 (Ctrl+N)")
         new_btn.setStatusTip("创建新文件")
         new_btn.triggered.connect(self.new_file)
         
-        # 打开按钮
-        open_btn = toolbar.addAction("📂")
-        open_btn.setToolTip("打开 (Ctrl+O)")
+        # 打开文件按钮
+        open_btn = toolbar.addAction(Icons.FOLDER_OPEN, "打开文件")
+        open_btn.setToolTip("打开文件 (Ctrl+O)")
         open_btn.setStatusTip("打开文件")
         open_btn.triggered.connect(self.open_file)
         
+        # 打开文件夹按钮
+        open_folder_btn = toolbar.addAction(Icons.FOLDER, "打开文件夹")
+        open_folder_btn.setToolTip("打开文件夹 (Ctrl+Shift+O)")
+        open_folder_btn.setStatusTip("打开文件夹")
+        open_folder_btn.triggered.connect(self.open_folder)
+        
         # 保存按钮
-        save_btn = toolbar.addAction("💾")
-        save_btn.setToolTip("保存 (Ctrl+S)")
+        save_btn = toolbar.addAction(Icons.SAVE, "保存")
+        save_btn.setToolTip("保存文件 (Ctrl+S)")
         save_btn.setStatusTip("保存当前文件")
         save_btn.triggered.connect(self.save_file)
         
         toolbar.addSeparator()
         
         # 关闭当前按钮
-        close_current_btn = toolbar.addAction("❌")
-        close_current_btn.setToolTip("关闭当前 (Ctrl+W)")
+        close_current_btn = toolbar.addAction(Icons.TIMES_CIRCLE, "关闭")
+        close_current_btn.setToolTip("关闭当前文件 (Ctrl+W)")
         close_current_btn.setStatusTip("关闭当前文件")
         close_current_btn.triggered.connect(self.close_current_file)
         
         # 关闭所有按钮
-        close_all_btn = toolbar.addAction("🗂️")
-        close_all_btn.setToolTip("关闭所有 (Ctrl+Shift+W)")
+        close_all_btn = toolbar.addAction(Icons.FOLDER_TIMES, "全部关闭")
+        close_all_btn.setToolTip("关闭所有文件 (Ctrl+Shift+W)")
         close_all_btn.setStatusTip("关闭所有文件")
         close_all_btn.triggered.connect(self.close_all_files)
         
         toolbar.addSeparator()
         
         # 撤销按钮
-        self.undo_btn = toolbar.addAction("↶")
-        self.undo_btn.setToolTip("撤销 (Ctrl+Z)")
+        self.undo_btn = toolbar.addAction(Icons.UNDO, "撤销")
+        self.undo_btn.setToolTip("撤销操作 (Ctrl+Z)")
         self.undo_btn.setStatusTip("撤销上一个操作")
         self.undo_btn.triggered.connect(self.undo)
         self.undo_btn.setEnabled(False)
         
         # 重做按钮
-        self.redo_btn = toolbar.addAction("↷")
-        self.redo_btn.setToolTip("重做 (Ctrl+Y)")
+        self.redo_btn = toolbar.addAction(Icons.REDO, "重做")
+        self.redo_btn.setToolTip("重做操作 (Ctrl+Y)")
         self.redo_btn.setStatusTip("重做上一个操作")
         self.redo_btn.triggered.connect(self.redo)
         self.redo_btn.setEnabled(False)
@@ -322,41 +356,47 @@ class MainWindow(QMainWindow):
         toolbar.addSeparator()
         
         # 清除按钮
-        clear_btn = toolbar.addAction("🗑️")
-        clear_btn.setToolTip("清除 (Ctrl+Delete)")
+        clear_btn = toolbar.addAction(Icons.TRASH, "清除")
+        clear_btn.setToolTip("清除所有内容 (Ctrl+Delete)")
         clear_btn.setStatusTip("清除当前编辑区所有内容")
         clear_btn.triggered.connect(self.clear_all)
         
         # 全选按钮
-        select_all_btn = toolbar.addAction("🔘")
-        select_all_btn.setToolTip("全选 (Ctrl+A)")
+        select_all_btn = toolbar.addAction(Icons.CHECK_CIRCLE, "全选")
+        select_all_btn.setToolTip("全选内容 (Ctrl+A)")
         select_all_btn.setStatusTip("选中当前编辑区所有内容")
         select_all_btn.triggered.connect(self.select_all)
         
         # 复制按钮
-        self.copy_btn = toolbar.addAction("📋")
-        self.copy_btn.setToolTip("复制 (Ctrl+C)")
+        self.copy_btn = toolbar.addAction(Icons.COPY, "复制")
+        self.copy_btn.setToolTip("复制选中内容 (Ctrl+C)")
         self.copy_btn.setStatusTip("复制选中的文本")
         self.copy_btn.triggered.connect(self.copy)
         self.copy_btn.setEnabled(False)
         
         # 粘贴按钮
-        self.paste_btn = toolbar.addAction("📰")
-        self.paste_btn.setToolTip("粘贴 (Ctrl+V)")
+        self.paste_btn = toolbar.addAction(Icons.PASTE, "粘贴")
+        self.paste_btn.setToolTip("粘贴内容 (Ctrl+V)")
         self.paste_btn.setStatusTip("在当前光标处粘贴剪贴板内容")
         self.paste_btn.triggered.connect(self.paste)
+        
+        # 全选+复制组合按钮（使用文字代替图标，更清晰）
+        select_copy_btn = toolbar.addAction("全选并复制")
+        select_copy_btn.setToolTip("全选并复制 (Ctrl+Shift+C)")
+        select_copy_btn.setStatusTip("选中所有内容并复制到剪贴板")
+        select_copy_btn.triggered.connect(self.select_all_and_copy)
         
         toolbar.addSeparator()
         
         # 查找按钮
-        find_btn = toolbar.addAction("🔍")
-        find_btn.setToolTip("查找 (Ctrl+F)")
+        find_btn = toolbar.addAction(Icons.SEARCH, "查找")
+        find_btn.setToolTip("查找文本 (Ctrl+F)")
         find_btn.setStatusTip("在当前文件中查找")
         find_btn.triggered.connect(self.show_find_dialog)
         
         # 替换按钮
-        replace_btn = toolbar.addAction("🔄")
-        replace_btn.setToolTip("替换 (Ctrl+H)")
+        replace_btn = toolbar.addAction(Icons.EXCHANGE, "替换")
+        replace_btn.setToolTip("查找并替换 (Ctrl+H)")
         replace_btn.setStatusTip("查找并替换")
         replace_btn.triggered.connect(self.show_replace_dialog)
     
@@ -547,6 +587,11 @@ class MainWindow(QMainWindow):
         # 应用全局主题样式
         self._apply_global_theme()
         
+        # 重新初始化图标以匹配新主题
+        self._init_icons()
+        # 重新创建工具栏以应用新图标
+        self._recreate_toolbar()
+        
         # 更新标签页组件样式
         if hasattr(self, 'tab_widget'):
             self.tab_widget._apply_tab_style()
@@ -561,6 +606,15 @@ class MainWindow(QMainWindow):
             self.file_explorer._apply_style()
         
         print(f"主题已切换到: {theme_name}")
+    
+    def _recreate_toolbar(self):
+        """重新创建工具栏以应用新图标"""
+        # 移除旧工具栏
+        for toolbar in self.findChildren(QToolBar):
+            self.removeToolBar(toolbar)
+        
+        # 创建新工具栏
+        self._create_toolbar()
     
     def _toggle_file_explorer(self, checked):
         """切换文件浏览器显示状态"""
@@ -675,6 +729,29 @@ class MainWindow(QMainWindow):
             self.file_opened.emit(file_path)
         else:
             QMessageBox.warning(self, "错误", f"无法打开文件: {file_path}")
+    
+    def open_folder(self):
+        """打开文件夹"""
+        # 获取最近打开的目录
+        last_dir = self._get_last_opened_directory()
+        
+        folder_path = QFileDialog.getExistingDirectory(
+            self,
+            "选择文件夹",
+            last_dir,
+            QFileDialog.Option.ShowDirsOnly | QFileDialog.Option.DontResolveSymlinks
+        )
+        
+        if folder_path:
+            # 设置文件浏览器的根路径
+            if hasattr(self, 'file_explorer') and self.file_explorer:
+                self.file_explorer.set_root_path(folder_path)
+                self.statusbar.showMessage(f"已打开文件夹: {folder_path}", 3000)
+                # 保存最近打开的目录
+                self._save_last_opened_directory(folder_path)
+                print(f"打开文件夹: {folder_path}")
+            else:
+                QMessageBox.warning(self, "错误", "文件浏览器不可用")
     
     def save_file(self):
         """保存文件"""
@@ -796,26 +873,18 @@ class MainWindow(QMainWindow):
     def show_user_guide(self):
         """显示使用指南"""
         try:
-            # 获取用户指南文件的绝对路径
-            current_dir = os.path.dirname(os.path.abspath(__file__))
-            project_root = os.path.dirname(os.path.dirname(current_dir))
-            guide_path = os.path.join(project_root, "docs", "user_guide.html")
+            # 使用在线版本的用户指南
+            online_guide_url = "https://madechango.com/static/changoeditor/user-guide.html"
             
-            if os.path.exists(guide_path):
-                # 在默认浏览器中打开用户指南
-                webbrowser.open(f"file:///{guide_path.replace(os.sep, '/')}")
-                self.statusbar.showMessage("已在浏览器中打开使用指南", 3000)
-            else:
-                QMessageBox.warning(
-                    self,
-                    "文件未找到",
-                    f"无法找到使用指南文件：\n{guide_path}\n\n请确保docs/user_guide.html文件存在。"
-                )
+            # 在默认浏览器中打开在线用户指南
+            webbrowser.open(online_guide_url)
+            self.statusbar.showMessage("已在浏览器中打开在线使用指南", 3000)
+            
         except Exception as e:
             QMessageBox.critical(
                 self,
-                "错误",
-                f"打开使用指南时出错：\n{str(e)}"
+                "错误", 
+                f"打开使用指南时出错：\n{str(e)}\n\n请检查网络连接，或手动访问：\nhttps://madechango.com/static/changoeditor/user-guide.html"
             )
 
     def show_about(self):
@@ -823,27 +892,33 @@ class MainWindow(QMainWindow):
         QMessageBox.about(
             self,
             "关于 Chango Editor",
-            "<h3>Chango Editor v1.2.0 🚀</h3>"
+            "<h3>Chango Editor v1.3.4 🚀</h3>"
             "<p>一个强大的类似于 Sublime Text 的代码编辑器，基于 Python 和 PyQt6 构建</p>"
-            "<p><b>🎯 v1.2.0 最新功能：</b></p>"
+            "<p><b>🎨 v1.3.4 最新功能 - 主题系统扩展：</b></p>"
             "<ul>"
-            "<li>🎨 工具栏全面图标化 - 直观的图标界面设计</li>"
-            "<li>📁 文件浏览器增强 - 展开/收起全部功能</li>"
-            "<li>💡 智能工具提示 - 显示功能名称和快捷键</li>"
-            "<li>🌍 界面国际化 - 现代化专业设计</li>"
-            "<li>📖 详细使用指南 - 帮助菜单新增使用说明</li>"
+            "<li>🌈 5个新主题 - Deep Blue、Light Yellow、Ocean、Forest、Monokai</li>"
+            "<li>📁 零代码配置 - 只需添加JSON文件即可创建新主题</li>"
+            "<li>🎯 场景化配色 - 专业开发、护眼阅读、创意设计等多场景覆盖</li>"
+            "<li>🚀 实时切换 - 菜单即时切换，无需重启</li>"
+            "</ul>"
+            "<p><b>📁 v1.3.3 功能：</b></p>"
+            "<ul>"
+            "<li>📂 打开文件夹功能 - 快捷键Ctrl+Shift+O</li>"
+            "<li>📏 路径区优化 - 完整显示文件路径，可横向滚动</li>"
+            "<li>🎨 图标风格统一 - SVG矢量图标，主题自动适配</li>"
             "</ul>"
             "<p><b>✨ 核心特性：</b></p>"
             "<ul>"
-            "<li>🎨 智能主题系统 - 深色/明亮主题无缝切换</li>"
+            "<li>🎨 7个精美主题 - 从经典到护眼，多场景覆盖</li>"
             "<li>📝 强大编辑功能 - 支持20+语言语法高亮</li>"
             "<li>🔍 高级搜索替换 - 正则表达式支持</li>"
-            "<li>📁 树形文件浏览器 - 支持展开/折叠和拖拽</li>"
-            "<li>⚡ 快捷操作工具栏 - 完整的快捷键支持</li>"
+            "<li>📁 智能文件管理 - 树形浏览器、拖拽打开、快速导航</li>"
+            "<li>⚡ 图标化工具栏 - 直观图标、完整快捷键支持</li>"
             "</ul>"
             "<p><b>🎮 快捷键参考：</b></p>"
-            "<p>Ctrl+N 新建 | Ctrl+O 打开 | Ctrl+S 保存 | Ctrl+F 查找 | Ctrl+H 替换</p>"
-            "<p><b>更新时间：</b>2025年8月27日</p>"
+            "<p>Ctrl+N 新建 | Ctrl+O 打开文件 | Ctrl+Shift+O 打开文件夹</p>"
+            "<p>Ctrl+S 保存 | Ctrl+F 查找 | Ctrl+H 替换 | Ctrl+Shift+C 全选并复制</p>"
+            "<p><b>更新时间：</b>2025年10月6日</p>"
             "<p>© 2025 Chango Team | MIT License</p>"
         )
     
@@ -920,6 +995,16 @@ class MainWindow(QMainWindow):
         if editor:
             editor.selectAll()
             self.statusbar.showMessage("已全选", 1000)
+    
+    def select_all_and_copy(self):
+        """全选并复制操作"""
+        editor = self.tab_widget.get_current_editor()
+        if editor:
+            # 先全选
+            editor.selectAll()
+            # 再复制
+            editor.copy()
+            self.statusbar.showMessage("✓ 已全选并复制到剪贴板", 2000)
     
     def clear_all(self):
         """清除所有内容（可撤销）"""

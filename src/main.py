@@ -10,6 +10,16 @@ Chango Editor - 主入口文件
 
 import sys
 import os
+import io
+
+# 设置控制台输出编码为UTF-8，避免中文乱码
+if sys.platform == 'win32':
+    try:
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+        sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+    except (AttributeError, io.UnsupportedOperation):
+        pass
+
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
@@ -42,7 +52,7 @@ def setup_application():
     
     # 设置应用程序信息
     app.setApplicationName("Chango Editor")
-    app.setApplicationVersion("0.1.0")
+    app.setApplicationVersion("1.3.4")
     app.setOrganizationName("Chango Team")
     app.setOrganizationDomain("chango-editor.com")
     

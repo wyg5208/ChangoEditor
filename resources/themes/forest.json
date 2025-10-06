@@ -1,0 +1,31 @@
+{
+  "name": "Forest Theme",
+  "description": "Chango Editor 森林主题 - 自然护眼的绿色基调",
+  "colors": {
+    "background": "#1a2b1a",
+    "foreground": "#d9e8d9",
+    "selection": "#2d5a2d",
+    "line_highlight": "#243324",
+    "line_number_background": "#2a3f2a",
+    "line_number_foreground": "#82a882",
+    "menu_background": "#2a3f2a",
+    "menu_foreground": "#d9e8d9",
+    "toolbar_background": "#2a3f2a",
+    "toolbar_foreground": "#66bb6a",
+    "statusbar_background": "#2a3f2a",
+    "statusbar_foreground": "#d9e8d9"
+  },
+  "syntax": {
+    "keyword": "#81c784",
+    "string": "#aed581",
+    "comment": "#689f38",
+    "number": "#ffb74d",
+    "function": "#ffca28",
+    "class": "#66bb6a",
+    "operator": "#d9e8d9",
+    "builtin": "#81c784",
+    "error": "#ef5350",
+    "decorator": "#ffd54f"
+  }
+}
+

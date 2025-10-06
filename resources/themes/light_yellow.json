@@ -1,0 +1,31 @@
+{
+  "name": "Light Yellow Theme",
+  "description": "Chango Editor 浅黄色主题 - 温暖舒适的护眼配色",
+  "colors": {
+    "background": "#fffef7",
+    "foreground": "#3e3e3e",
+    "selection": "#ffeaa7",
+    "line_highlight": "#fff9e6",
+    "line_number_background": "#fff3cd",
+    "line_number_foreground": "#9c8866",
+    "menu_background": "#fff8dc",
+    "menu_foreground": "#3e3e3e",
+    "toolbar_background": "#fff8dc",
+    "toolbar_foreground": "#d4a015",
+    "statusbar_background": "#fff8dc",
+    "statusbar_foreground": "#3e3e3e"
+  },
+  "syntax": {
+    "keyword": "#d4751d",
+    "string": "#8b6f47",
+    "comment": "#9caf88",
+    "number": "#2b7c85",
+    "function": "#c56000",
+    "class": "#b8860b",
+    "operator": "#3e3e3e",
+    "builtin": "#d4751d",
+    "error": "#d32f2f",
+    "decorator": "#ff8f00"
+  }
+}
+
