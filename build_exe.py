@@ -5,6 +5,7 @@ Chango Editor PyInstaller 打包脚本
 自动化打包成独立exe文件
 
 更新历史:
+- 2025年10月8日: v1.4.0 - 版本自动识别，支持8种语言国际化
 - 2025年10月6日: 更新主题文件打包配置，支持7个主题
 - 2025年1月6日: 初始版本
 """
@@ -20,6 +21,23 @@ if sys.platform == 'win32':
     import io
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+
+# 从统一版本配置文件导入版本信息
+try:
+    from version import (
+        __version__ as APP_VERSION,
+        APP_NAME,
+        APP_DISPLAY_NAME,
+        APP_DESCRIPTION
+    )
+    print(f"✅ 版本信息加载成功: v{APP_VERSION}")
+except ImportError:
+    # 降级方案：如果version.py不存在，使用默认值
+    print("⚠️  警告: 未找到 version.py，使用默认版本信息")
+    APP_VERSION = "1.4.0"
+    APP_NAME = "ChangoEditor"
+    APP_DISPLAY_NAME = "Chango Editor"
+    APP_DESCRIPTION = "功能强大的代码编辑器"
 
 def clean_build_dirs():
     """清理构建目录"""
@@ -78,13 +96,7 @@ def verify_dependencies():
     required_files = [
         'src/main.py',
         'src/ui/main_window.py',
-        'resources/themes/dark.json',
-        'resources/themes/light.json',
-        'resources/themes/monokai.json',
-        'resources/themes/deep_blue.json',
-        'resources/themes/ocean.json',
-        'resources/themes/forest.json',
-        'resources/themes/light_yellow.json'
+        'src/core/i18n.py'
     ]
     
     for file_path in required_files:
@@ -93,6 +105,22 @@ def verify_dependencies():
         else:
             print(f"❌ 缺少文件: {file_path}")
             return False
+    
+    # 检查主题文件（自动扫描）
+    theme_dir = Path('resources/themes')
+    if theme_dir.exists():
+        theme_count = len(list(theme_dir.glob('*.json')))
+        print(f"✅ 主题文件: {theme_count} 个")
+    else:
+        print("⚠️  警告: resources/themes 目录不存在")
+    
+    # 检查国际化语言文件（自动扫描）
+    i18n_dir = Path('resources/i18n/locales')
+    if i18n_dir.exists():
+        locale_count = len(list(i18n_dir.glob('*.json')))
+        print(f"✅ 语言文件: {locale_count} 个")
+    else:
+        print("⚠️  警告: resources/i18n/locales 目录不存在")
     
     return True
 
@@ -172,11 +200,13 @@ def build_exe():
     pyinstaller_path = 'Scripts/pyinstaller.exe' if os.path.exists('Scripts/pyinstaller.exe') else 'pyinstaller'
     
     # 构建PyInstaller命令
+    exe_name = f"{APP_NAME}-v{APP_VERSION}" if APP_VERSION else APP_NAME
+    
     cmd = [
         pyinstaller_path,
         '--onefile',           # 单文件模式
         '--windowed',          # 无控制台模式
-        '--name=ChangoEditor', # 可执行文件名
+        f'--name={exe_name}',  # 可执行文件名（带版本号）
         '--clean',             # 清理临时文件
         '--noconfirm',         # 覆盖输出目录而不确认
         '--distpath=dist',     # 指定输出目录
@@ -205,7 +235,7 @@ def build_exe():
         '--hidden-import=watchdog.observers',
         '--hidden-import=watchdog.events',
         
-        # Git 支持
+        # Git 支持（可选）
         '--hidden-import=git',
         '--hidden-import=gitdb',
         '--hidden-import=smmap',
@@ -219,11 +249,13 @@ def build_exe():
         '--hidden-import=src.ui.search_dialog',
         '--hidden-import=src.ui.new_file_dialog',
         '--hidden-import=src.ui.split_view',
+        '--hidden-import=src.ui.language_selector',  # 国际化 UI
         '--hidden-import=src.core',
         '--hidden-import=src.core.editor',
         '--hidden-import=src.core.document',
         '--hidden-import=src.core.selection',
         '--hidden-import=src.core.undo_redo',
+        '--hidden-import=src.core.i18n',  # 国际化核心模块
         '--hidden-import=src.utils',
         '--hidden-import=src.utils.syntax',
         '--hidden-import=src.utils.themes',
@@ -239,22 +271,30 @@ def build_exe():
         'src/main.py'
     ]
     
-    # 添加所有主题文件
-    theme_files = [
-        'resources/themes/dark.json',
-        'resources/themes/light.json',
-        'resources/themes/monokai.json',
-        'resources/themes/deep_blue.json',
-        'resources/themes/ocean.json',
-        'resources/themes/forest.json',
-        'resources/themes/light_yellow.json'
-    ]
-    for theme_file in theme_files:
-        if os.path.exists(theme_file):
+    print(f"\n📦 构建 {APP_DISPLAY_NAME} v{APP_VERSION}")
+    print(f"📋 EXE文件名: {exe_name}.exe")
+    
+    # 自动添加所有主题文件
+    theme_dir = Path('resources/themes')
+    if theme_dir.exists():
+        theme_files = list(theme_dir.glob('*.json'))
+        for theme_file in theme_files:
             cmd.extend(['--add-data', f'{theme_file};resources/themes'])
-            print(f"添加主题文件: {theme_file}")
-        else:
-            print(f"⚠️  主题文件不存在: {theme_file}")
+            print(f"✅ 添加主题: {theme_file.name}")
+        print(f"📦 总计 {len(theme_files)} 个主题文件")
+    else:
+        print("⚠️  警告: resources/themes 目录不存在")
+    
+    # 自动添加所有国际化语言文件（新增）
+    i18n_dir = Path('resources/i18n/locales')
+    if i18n_dir.exists():
+        locale_files = list(i18n_dir.glob('*.json'))
+        for locale_file in locale_files:
+            cmd.extend(['--add-data', f'{locale_file};resources/i18n/locales'])
+            print(f"✅ 添加语言: {locale_file.stem}")
+        print(f"🌍 总计 {len(locale_files)} 个语言文件")
+    else:
+        print("⚠️  警告: resources/i18n/locales 目录不存在")
     
     # 添加图标文件
     icon_files = [
@@ -276,7 +316,7 @@ def build_exe():
     
     print("\n执行打包命令...")
     print("="*60)
-    print(f"命令预览: pyinstaller --onefile --windowed --name=ChangoEditor ...")
+    print(f"命令预览: pyinstaller --onefile --windowed --name={exe_name} ...")
     
     try:
         # 执行打包命令
@@ -286,20 +326,24 @@ def build_exe():
             print("\n" + "="*60)
             print("✅ 打包成功!")
             
-            exe_path = 'dist/ChangoEditor.exe'
+            exe_path = f'dist/{exe_name}.exe'
             if os.path.exists(exe_path):
-                print(f"可执行文件位置: {os.path.abspath(exe_path)}")
+                print(f"📁 可执行文件位置: {os.path.abspath(exe_path)}")
+                print(f"📋 文件名: {exe_name}.exe")
+                print(f"🔖 版本号: v{APP_VERSION}")
                 
                 # 显示文件大小
                 size_mb = os.path.getsize(exe_path) / (1024 * 1024)
-                print(f"文件大小: {size_mb:.1f} MB")
+                print(f"📊 文件大小: {size_mb:.1f} MB")
                 
                 print("\n📝 使用说明:")
-                print("- 可执行文件是完全独立的，无需安装Python")
-                print("- 可以直接分发给其他用户使用")  
-                print("- 首次运行可能需要一些时间来解压")
-                print("- 支持拖拽文件到编辑器窗口打开")
-                print("- 支持命令行参数: ChangoEditor.exe [文件路径]")
+                print("- ✅ 完全独立的可执行文件，无需安装Python")
+                print("- ✅ 支持8种语言界面（简中、英、日、马来、韩、俄、西、繁中）")
+                print("- ✅ 包含7个精美主题")
+                print("- ✅ 可以直接分发给其他用户使用")  
+                print("- ✅ 首次运行可能需要一些时间来解压")
+                print("- ✅ 支持拖拽文件到编辑器窗口打开")
+                print(f"- ✅ 支持命令行参数: {exe_name}.exe [文件路径]")
                 
                 # 快速测试
                 print(f"\n🧪 快速测试: 双击 {exe_path} 验证是否正常启动")
@@ -329,16 +373,24 @@ def build_exe():
 
 def main():
     """主函数"""
-    print("Chango Editor 构建工具")
+    print(f"{APP_DISPLAY_NAME} v{APP_VERSION} 构建工具")
     print("="*60)
     
     success = build_exe()
     
     if success:
-        print("\n🎉 Chango Editor 打包完成!")
+        print(f"\n🎉 {APP_DISPLAY_NAME} v{APP_VERSION} 打包完成!")
         print("="*60)
+        print("\n📦 生成的文件包含:")
+        print(f"  • {APP_NAME}-v{APP_VERSION}.exe (便携版)")
+        print("  • 7个精美主题")
+        print("  • 8种语言界面")
+        print("  • 完整功能支持")
+        print("\n💡 提示:")
+        print(f"  • 要更新版本号，请修改 version.py 文件")
+        print(f"  • 当前版本会自动从 version.py 读取")
     else:
-        print("\n❌ 打包过程中出现错误")
+        print(f"\n❌ {APP_DISPLAY_NAME} 打包过程中出现错误")
         print("="*60)
         sys.exit(1)
 

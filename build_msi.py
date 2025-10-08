@@ -11,10 +11,12 @@ Chango Editor MSI安装包构建脚本
 
 注意：
 - 需要在Windows环境下运行
-- 会自动包含所有7个主题文件
+- 会自动包含所有7个主题文件和8种语言文件
 - 会自动包含所有必需的Python标准库
+- 版本号自动从 version.py 读取
 
 更新历史：
+- 2025年10月8日: v1.4.0 - 版本自动识别，支持国际化资源
 - 2025年10月6日: 修复urllib模块缺失问题，添加7个主题支持
 - 之前版本: 初始版本
 """
@@ -23,6 +25,7 @@ import os
 import sys
 import shutil
 import subprocess
+from pathlib import Path
 from cx_Freeze import setup, Executable
 
 # 设置 UTF-8 编码输出
@@ -31,12 +34,28 @@ if sys.platform == 'win32':
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
-# 应用信息
-APP_NAME = "ChangoEditor"
-APP_VERSION = "1.3.4"
-APP_DESCRIPTION = "功能强大的代码编辑器 - 支持20+语言，7个精美主题"
-APP_AUTHOR = "Chango Team"
-APP_URL = "https://github.com/wyg5208/ChangoEditor"
+# 从统一版本配置文件导入版本信息
+try:
+    from version import (
+        __version__ as APP_VERSION,
+        APP_NAME,
+        APP_DISPLAY_NAME,
+        APP_DESCRIPTION,
+        APP_AUTHOR,
+        APP_URL,
+        RELEASE_TITLE
+    )
+    print(f"✅ 版本信息加载成功: v{APP_VERSION}")
+except ImportError:
+    # 降级方案：如果version.py不存在，使用默认值
+    print("⚠️  警告: 未找到 version.py，使用默认版本信息")
+    APP_VERSION = "1.4.0"
+    APP_NAME = "ChangoEditor"
+    APP_DISPLAY_NAME = "Chango Editor"
+    APP_DESCRIPTION = "功能强大的代码编辑器 - 支持20+语言、8种界面语言、7个精美主题"
+    APP_AUTHOR = "Chango Team"
+    APP_URL = "https://github.com/wyg5208/changoeditor"
+    RELEASE_TITLE = f"{APP_DISPLAY_NAME} v{APP_VERSION}"
 
 def get_icon_path():
     """获取图标文件路径"""
@@ -81,20 +100,22 @@ def prepare_build():
 include_files = []
 
 # 添加主题文件
-theme_files = [
-    'resources/themes/dark.json',
-    'resources/themes/light.json',
-    'resources/themes/monokai.json',
-    'resources/themes/deep_blue.json',
-    'resources/themes/ocean.json',
-    'resources/themes/forest.json',
-    'resources/themes/light_yellow.json'
-]
+theme_dir = Path('resources/themes')
+if theme_dir.exists():
+    for theme_file in theme_dir.glob('*.json'):
+        include_files.append((str(theme_file), f"resources/themes/{theme_file.name}"))
+        print(f"✅ 添加主题: {theme_file.name}")
+else:
+    print("⚠️  警告: resources/themes 目录不存在")
 
-for theme_file in theme_files:
-    if os.path.exists(theme_file):
-        include_files.append((theme_file, f"resources/themes/{os.path.basename(theme_file)}"))
-        print(f"添加主题文件: {theme_file}")
+# 添加国际化文件（i18n）
+i18n_dir = Path('resources/i18n/locales')
+if i18n_dir.exists():
+    for locale_file in i18n_dir.glob('*.json'):
+        include_files.append((str(locale_file), f"resources/i18n/locales/{locale_file.name}"))
+        print(f"✅ 添加语言: {locale_file.stem}")
+else:
+    print("⚠️  警告: resources/i18n/locales 目录不存在")
 
 # 添加图标文件
 icon_files = [

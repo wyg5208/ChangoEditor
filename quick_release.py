@@ -3,6 +3,7 @@
 """
 Chango Editor 快速发布脚本
 自动构建 EXE 和 MSI，并准备 GitHub Release
+版本号自动从 version.py 读取
 """
 
 import os
@@ -17,15 +18,26 @@ if sys.platform == 'win32':
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
-# 版本配置
-VERSION = "1.4.0"
-TAG = f"v{VERSION}"
-RELEASE_TITLE = f"Chango Editor v{VERSION} - 完整国际化支持"
+# 从统一版本配置文件导入版本信息
+try:
+    from version import (
+        __version__ as VERSION,
+        RELEASE_TAG as TAG,
+        RELEASE_TITLE,
+        APP_DISPLAY_NAME
+    )
+    print(f"✅ 版本信息加载成功: {TAG}")
+except ImportError:
+    print("⚠️  警告: 未找到 version.py，使用默认版本")
+    VERSION = "1.4.0"
+    TAG = f"v{VERSION}"
+    RELEASE_TITLE = f"Chango Editor v{VERSION} - 完整国际化支持"
+    APP_DISPLAY_NAME = "Chango Editor"
 
 # 文件路径
-EXE_FILE = Path("dist/ChangoEditor.exe")
-MSI_FILE = Path(f"installer/output/ChangoEditor-{VERSION}.msi")
-CHANGELOG_FILE = Path("CHANGELOG_v1.4.0.md")
+EXE_FILE = Path(f"dist/{APP_NAME}-v{VERSION}.exe")
+MSI_FILE = Path(f"dist/ChangoEditor-Setup-v{VERSION}.msi")
+CHANGELOG_FILE = Path(f"CHANGELOG_v{VERSION}.md")
 
 def print_step(step, message):
     """打印步骤信息"""
@@ -183,11 +195,11 @@ def show_github_instructions(files):
 📥 发布后的下载链接:
 
    最新版本: https://github.com/wyg5208/changoeditor/releases/latest
-   特定版本: https://github.com/wyg5208/changoeditor/releases/tag/v1.4.0
+   特定版本: https://github.com/wyg5208/changoeditor/releases/tag/{TAG}
    
    直接下载:
-   - EXE: https://github.com/wyg5208/changoeditor/releases/download/v1.4.0/ChangoEditor.exe
-   - MSI: https://github.com/wyg5208/changoeditor/releases/download/v1.4.0/ChangoEditor-1.4.0.msi
+   - EXE: https://github.com/wyg5208/changoeditor/releases/download/{TAG}/{APP_NAME}-v{VERSION}.exe
+   - MSI: https://github.com/wyg5208/changoeditor/releases/download/{TAG}/ChangoEditor-Setup-v{VERSION}.msi
 """)
 
 def main():
@@ -195,7 +207,7 @@ def main():
     print(f"""
 ╔═══════════════════════════════════════════════════════════════════╗
 ║                                                                   ║
-║           Chango Editor v{VERSION} 快速发布脚本                    ║
+║           {APP_DISPLAY_NAME} {TAG} 快速发布脚本                    ║
 ║                                                                   ║
 ╚═══════════════════════════════════════════════════════════════════╝
 """)
