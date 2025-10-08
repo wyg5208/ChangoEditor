@@ -1,0 +1,336 @@
+{
+  "meta": {
+    "language": "English",
+    "code": "en_US",
+    "version": "1.0.0",
+    "author": "ChangoSoft"
+  },
+  "app": {
+    "title": "Chango Editor",
+    "description": "Modern Code Editor"
+  },
+  "menu": {
+    "file": {
+      "title": "&File",
+      "new": {
+        "text": "&New",
+        "tip": "Create a new file"
+      },
+      "open": {
+        "text": "&Open File",
+        "tip": "Open a file"
+      },
+      "open_folder": {
+        "text": "Open Fol&der",
+        "tip": "Open a folder"
+      },
+      "save": {
+        "text": "&Save",
+        "tip": "Save current file"
+      },
+      "save_as": {
+        "text": "Save &As",
+        "tip": "Save as new file"
+      },
+      "close_current": {
+        "text": "&Close",
+        "tip": "Close current file"
+      },
+      "close_all": {
+        "text": "C&lose All",
+        "tip": "Close all files"
+      },
+      "exit": {
+        "text": "E&xit",
+        "tip": "Exit application"
+      }
+    },
+    "edit": {
+      "title": "&Edit",
+      "undo": {
+        "text": "&Undo",
+        "tip": "Undo last action"
+      },
+      "redo": {
+        "text": "&Redo",
+        "tip": "Redo last action"
+      },
+      "cut": {
+        "text": "Cu&t",
+        "tip": "Cut selected text"
+      },
+      "copy": {
+        "text": "&Copy",
+        "tip": "Copy selected text"
+      },
+      "paste": {
+        "text": "&Paste",
+        "tip": "Paste clipboard content"
+      }
+    },
+    "view": {
+      "title": "&View",
+      "file_explorer": {
+        "text": "File &Explorer",
+        "tip": "Show/Hide file explorer"
+      }
+    },
+    "theme": {
+      "title": "&Theme",
+      "dark": "Dark Theme",
+      "light": "Light Theme",
+      "deep_blue": "Deep Blue Theme",
+      "ocean": "Ocean Theme",
+      "forest": "Forest Theme",
+      "monokai": "Monokai Theme",
+      "light_yellow": "Light Yellow Theme"
+    },
+    "search": {
+      "title": "&Search",
+      "find": {
+        "text": "&Find",
+        "tip": "Find in current file"
+      },
+      "replace": {
+        "text": "&Replace",
+        "tip": "Find and replace"
+      }
+    },
+    "language": "Language",
+    "help": {
+      "title": "&Help",
+      "about": {
+        "text": "&About",
+        "tip": "About Chango Editor"
+      },
+      "user_guide": {
+        "text": "&User Guide",
+        "tip": "View user guide"
+      }
+    }
+  },
+  "toolbar": {
+    "main": "Main Toolbar",
+    "new": {
+      "text": "New",
+      "tooltip": "New File (Ctrl+N)",
+      "tip": "Create new file"
+    },
+    "open_file": {
+      "text": "Open File",
+      "tooltip": "Open File (Ctrl+O)",
+      "tip": "Open a file"
+    },
+    "open_folder": {
+      "text": "Open Folder",
+      "tooltip": "Open Folder (Ctrl+Shift+O)",
+      "tip": "Open a folder"
+    },
+    "save": {
+      "text": "Save",
+      "tooltip": "Save File (Ctrl+S)",
+      "tip": "Save current file"
+    },
+    "close_current": {
+      "text": "Close",
+      "tooltip": "Close Current File (Ctrl+W)",
+      "tip": "Close current file"
+    },
+    "close_all": {
+      "text": "Close All",
+      "tooltip": "Close All Files (Ctrl+Shift+W)",
+      "tip": "Close all files"
+    },
+    "undo": {
+      "text": "Undo",
+      "tooltip": "Undo (Ctrl+Z)",
+      "tip": "Undo last action"
+    },
+    "redo": {
+      "text": "Redo",
+      "tooltip": "Redo (Ctrl+Y)",
+      "tip": "Redo last action"
+    },
+    "clear": {
+      "text": "Clear",
+      "tooltip": "Clear All (Ctrl+Delete)",
+      "tip": "Clear all content in editor"
+    },
+    "select_all": {
+      "text": "Select All",
+      "tooltip": "Select All (Ctrl+A)",
+      "tip": "Select all content in editor"
+    },
+    "copy": {
+      "text": "Copy",
+      "tooltip": "Copy (Ctrl+C)",
+      "tip": "Copy selected text"
+    },
+    "paste": {
+      "text": "Paste",
+      "tooltip": "Paste (Ctrl+V)",
+      "tip": "Paste clipboard content"
+    },
+    "select_copy": {
+      "text": "Select All & Copy",
+      "tooltip": "Select All & Copy (Ctrl+Shift+C)",
+      "tip": "Select all content and copy to clipboard"
+    },
+    "find": {
+      "text": "Find",
+      "tooltip": "Find (Ctrl+F)",
+      "tip": "Find in current file"
+    },
+    "replace": {
+      "text": "Replace",
+      "tooltip": "Replace (Ctrl+H)",
+      "tip": "Find and replace"
+    }
+  },
+  "sidebar": {
+    "explorer": "Explorer",
+    "search": "Search",
+    "extensions": "Extensions",
+    "settings": "Settings"
+  },
+  "explorer": {
+    "title": "Explorer",
+    "workspace": "Workspace",
+    "no_folder": "No Folder Opened",
+    "open_folder": "Open Folder",
+    "new_file": "New File",
+    "new_folder": "New Folder",
+    "rename": "Rename",
+    "delete": "Delete",
+    "refresh": "Refresh",
+    "reveal_in_explorer": "Reveal in Explorer",
+    "copy_path": "Copy Path"
+  },
+  "editor": {
+    "untitled": "Untitled",
+    "modified": "Modified",
+    "readonly": "Read-only",
+    "line": "Line",
+    "column": "Column",
+    "selected": "Selected",
+    "spaces": "Spaces",
+    "tabs": "Tabs"
+  },
+  "statusbar": {
+    "ready": "Ready",
+    "line": "Ln",
+    "column": "Col",
+    "encoding": "Encoding",
+    "language_mode": "Language",
+    "eol": "EOL",
+    "indent": "Indent",
+    "insert": "Insert",
+    "overwrite": "Overwrite"
+  },
+  "dialog": {
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "ok": "OK",
+    "yes": "Yes",
+    "no": "No",
+    "apply": "Apply",
+    "close": "Close",
+    "save": "Save",
+    "dont_save": "Don't Save",
+    "save_changes": "Save Changes?",
+    "save_changes_message": "File '{filename}' has been modified. Do you want to save the changes?",
+    "unsaved_changes": "Unsaved Changes",
+    "overwrite_file": "File already exists. Overwrite?",
+    "delete_confirm": "Confirm Delete",
+    "delete_confirm_message": "Are you sure you want to delete '{filename}'? This action cannot be undone.",
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Information",
+    "success": "Success"
+  },
+  "message": {
+    "file_saved": "File saved",
+    "file_saved_as": "File saved as: {filename}",
+    "file_opened": "File opened: {filename}",
+    "file_created": "File created: {filename}",
+    "file_deleted": "File deleted: {filename}",
+    "file_renamed": "File renamed: {filename}",
+    "file_not_found": "File not found: {filename}",
+    "file_read_error": "Error reading file: {error}",
+    "file_write_error": "Error saving file: {error}",
+    "folder_opened": "Folder opened: {foldername}",
+    "folder_created": "Folder created: {foldername}",
+    "encoding_changed": "Encoding changed to: {encoding}",
+    "language_changed": "Language switched to: {language}",
+    "theme_changed": "Theme changed to: {theme}",
+    "copied_to_clipboard": "Copied to clipboard",
+    "error_occurred": "Error occurred: {error}",
+    "operation_completed": "Operation completed",
+    "processing": "Processing...",
+    "loading": "Loading...",
+    "saving": "Saving..."
+  },
+  "about": {
+    "title": "About Chango Editor",
+    "header": "Chango Editor v1.4.0 🚀",
+    "intro": "A powerful Sublime Text-like code editor built with Python and PyQt6",
+    "latest_features": "v1.4.0 Latest Features - Complete Internationalization:",
+    "feature_themes": "🌐 8 Language Interfaces - 简体中文, English, 日本語, Bahasa Melayu, 한국어, Русский, Español, 繁體中文",
+    "feature_zero_config": "🔄 Real-Time Language Switching - No restart required, instant UI updates",
+    "feature_scenarios": "📱 Smart Language Detection - Auto-detects system language, instant localization",
+    "feature_realtime": "🎯 Complete Translation Coverage - Menus, toolbars, dialogs, all messages translated",
+    "v133_features": "v1.3.4 Theme System Extension:",
+    "feature_folder": "🌈 5 New Themes - Deep Blue, Light Yellow, Ocean, Forest, Monokai",
+    "feature_path": "📁 Zero-Code Configuration - Create new themes by adding JSON files",
+    "feature_icons": "🚀 Real-Time Switching - Instant menu switching, no restart required",
+    "core_features": "Core Features:",
+    "feature_7themes": "🌍 8 Languages - Complete internationalization with real-time switching",
+    "feature_editing": "🎨 7 Beautiful Themes - From classic to eye-friendly, multi-scenario",
+    "feature_search": "📝 Powerful Editing - Syntax highlighting for 20+ languages",
+    "feature_file_mgmt": "📁 Smart File Management - Tree browser, drag & drop, quick navigation",
+    "feature_toolbar": "⚡ Icon Toolbar - Intuitive icons, complete shortcut support",
+    "shortcuts_title": "Keyboard Shortcuts:",
+    "shortcuts_line1": "Ctrl+N New | Ctrl+O Open File | Ctrl+Shift+O Open Folder",
+    "shortcuts_line2": "Ctrl+S Save | Ctrl+F Find | Ctrl+H Replace | Ctrl+Shift+C Select All & Copy",
+    "update_date": "Last Updated:",
+    "date": "October 8, 2025",
+    "copyright": "© 2025 Chango Team | MIT License"
+  },
+  "settings": {
+    "title": "Settings",
+    "general": "General",
+    "editor": "Editor",
+    "appearance": "Appearance",
+    "language": "Language",
+    "font_size": "Font Size",
+    "font_family": "Font Family",
+    "tab_size": "Tab Size",
+    "auto_save": "Auto Save",
+    "word_wrap": "Word Wrap",
+    "line_numbers": "Line Numbers",
+    "theme": "Theme"
+  },
+  "shortcuts": {
+    "title": "Keyboard Shortcuts",
+    "file_operations": "File Operations",
+    "edit_operations": "Edit Operations",
+    "view_operations": "View Operations",
+    "search_operations": "Search Operations"
+  },
+  "common": {
+    "search": "Search",
+    "replace": "Replace",
+    "find_next": "Find Next",
+    "find_previous": "Find Previous",
+    "replace_all": "Replace All",
+    "match_case": "Match Case",
+    "whole_word": "Whole Word",
+    "regex": "Regular Expression",
+    "name": "Name",
+    "type": "Type",
+    "size": "Size",
+    "modified": "Modified",
+    "path": "Path"
+  }
+}
+

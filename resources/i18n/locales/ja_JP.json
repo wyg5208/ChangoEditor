@@ -1,0 +1,336 @@
+{
+  "meta": {
+    "language": "日本語",
+    "code": "ja_JP",
+    "version": "1.0.0",
+    "author": "ChangoSoft"
+  },
+  "app": {
+    "title": "Chango Editor",
+    "description": "モダンなコードエディタ"
+  },
+  "menu": {
+    "file": {
+      "title": "ファイル(&F)",
+      "new": {
+        "text": "新規作成(&N)",
+        "tip": "新しいファイルを作成"
+      },
+      "open": {
+        "text": "ファイルを開く(&O)",
+        "tip": "ファイルを開く"
+      },
+      "open_folder": {
+        "text": "フォルダを開く(&D)",
+        "tip": "フォルダを開く"
+      },
+      "save": {
+        "text": "保存(&S)",
+        "tip": "現在のファイルを保存"
+      },
+      "save_as": {
+        "text": "名前を付けて保存(&A)",
+        "tip": "新しいファイルとして保存"
+      },
+      "close_current": {
+        "text": "閉じる(&C)",
+        "tip": "現在のファイルを閉じる"
+      },
+      "close_all": {
+        "text": "すべて閉じる(&L)",
+        "tip": "すべてのファイルを閉じる"
+      },
+      "exit": {
+        "text": "終了(&X)",
+        "tip": "アプリケーションを終了"
+      }
+    },
+    "edit": {
+      "title": "編集(&E)",
+      "undo": {
+        "text": "元に戻す(&U)",
+        "tip": "最後の操作を元に戻す"
+      },
+      "redo": {
+        "text": "やり直し(&R)",
+        "tip": "最後の操作をやり直す"
+      },
+      "cut": {
+        "text": "切り取り(&T)",
+        "tip": "選択したテキストを切り取り"
+      },
+      "copy": {
+        "text": "コピー(&C)",
+        "tip": "選択したテキストをコピー"
+      },
+      "paste": {
+        "text": "貼り付け(&P)",
+        "tip": "クリップボードの内容を貼り付け"
+      }
+    },
+    "view": {
+      "title": "表示(&V)",
+      "file_explorer": {
+        "text": "ファイルエクスプローラー(&E)",
+        "tip": "ファイルエクスプローラーの表示/非表示"
+      }
+    },
+    "theme": {
+      "title": "テーマ(&T)",
+      "dark": "ダークテーマ",
+      "light": "ライトテーマ",
+      "deep_blue": "ディープブルーテーマ",
+      "ocean": "オーシャンテーマ",
+      "forest": "フォレストテーマ",
+      "monokai": "Monokaiテーマ",
+      "light_yellow": "ライトイエローテーマ"
+    },
+    "search": {
+      "title": "検索(&S)",
+      "find": {
+        "text": "検索(&F)",
+        "tip": "現在のファイル内を検索"
+      },
+      "replace": {
+        "text": "置換(&R)",
+        "tip": "検索して置換"
+      }
+    },
+    "language": "言語",
+    "help": {
+      "title": "ヘルプ(&H)",
+      "about": {
+        "text": "バージョン情報(&A)",
+        "tip": "Chango Editorについて"
+      },
+      "user_guide": {
+        "text": "ユーザーガイド(&U)",
+        "tip": "ユーザーガイドを表示"
+      }
+    }
+  },
+  "toolbar": {
+    "main": "メインツールバー",
+    "new": {
+      "text": "新規作成",
+      "tooltip": "新規ファイル (Ctrl+N)",
+      "tip": "新しいファイルを作成"
+    },
+    "open_file": {
+      "text": "ファイルを開く",
+      "tooltip": "ファイルを開く (Ctrl+O)",
+      "tip": "ファイルを開く"
+    },
+    "open_folder": {
+      "text": "フォルダを開く",
+      "tooltip": "フォルダを開く (Ctrl+Shift+O)",
+      "tip": "フォルダを開く"
+    },
+    "save": {
+      "text": "保存",
+      "tooltip": "ファイルを保存 (Ctrl+S)",
+      "tip": "現在のファイルを保存"
+    },
+    "close_current": {
+      "text": "閉じる",
+      "tooltip": "現在のファイルを閉じる (Ctrl+W)",
+      "tip": "現在のファイルを閉じる"
+    },
+    "close_all": {
+      "text": "すべて閉じる",
+      "tooltip": "すべてのファイルを閉じる (Ctrl+Shift+W)",
+      "tip": "すべてのファイルを閉じる"
+    },
+    "undo": {
+      "text": "元に戻す",
+      "tooltip": "元に戻す (Ctrl+Z)",
+      "tip": "最後の操作を元に戻す"
+    },
+    "redo": {
+      "text": "やり直し",
+      "tooltip": "やり直し (Ctrl+Y)",
+      "tip": "最後の操作をやり直す"
+    },
+    "clear": {
+      "text": "クリア",
+      "tooltip": "すべてクリア (Ctrl+Delete)",
+      "tip": "エディタのすべての内容をクリア"
+    },
+    "select_all": {
+      "text": "すべて選択",
+      "tooltip": "すべて選択 (Ctrl+A)",
+      "tip": "エディタのすべての内容を選択"
+    },
+    "copy": {
+      "text": "コピー",
+      "tooltip": "コピー (Ctrl+C)",
+      "tip": "選択したテキストをコピー"
+    },
+    "paste": {
+      "text": "貼り付け",
+      "tooltip": "貼り付け (Ctrl+V)",
+      "tip": "クリップボードの内容を貼り付け"
+    },
+    "select_copy": {
+      "text": "すべて選択してコピー",
+      "tooltip": "すべて選択してコピー (Ctrl+Shift+C)",
+      "tip": "すべての内容を選択してクリップボードにコピー"
+    },
+    "find": {
+      "text": "検索",
+      "tooltip": "検索 (Ctrl+F)",
+      "tip": "現在のファイル内を検索"
+    },
+    "replace": {
+      "text": "置換",
+      "tooltip": "置換 (Ctrl+H)",
+      "tip": "検索して置換"
+    }
+  },
+  "sidebar": {
+    "explorer": "エクスプローラー",
+    "search": "検索",
+    "extensions": "拡張機能",
+    "settings": "設定"
+  },
+  "explorer": {
+    "title": "エクスプローラー",
+    "workspace": "ワークスペース",
+    "no_folder": "フォルダが開かれていません",
+    "open_folder": "フォルダを開く",
+    "new_file": "新規ファイル",
+    "new_folder": "新規フォルダ",
+    "rename": "名前を変更",
+    "delete": "削除",
+    "refresh": "更新",
+    "reveal_in_explorer": "エクスプローラーで表示",
+    "copy_path": "パスをコピー"
+  },
+  "editor": {
+    "untitled": "無題",
+    "modified": "変更済み",
+    "readonly": "読み取り専用",
+    "line": "行",
+    "column": "列",
+    "selected": "選択中",
+    "spaces": "スペース",
+    "tabs": "タブ"
+  },
+  "statusbar": {
+    "ready": "準備完了",
+    "line": "行",
+    "column": "列",
+    "encoding": "エンコーディング",
+    "language_mode": "言語モード",
+    "eol": "改行コード",
+    "indent": "インデント",
+    "insert": "挿入",
+    "overwrite": "上書き"
+  },
+  "dialog": {
+    "confirm": "確認",
+    "cancel": "キャンセル",
+    "ok": "OK",
+    "yes": "はい",
+    "no": "いいえ",
+    "apply": "適用",
+    "close": "閉じる",
+    "save": "保存",
+    "dont_save": "保存しない",
+    "save_changes": "変更を保存しますか？",
+    "save_changes_message": "ファイル '{filename}' は変更されています。変更を保存しますか？",
+    "unsaved_changes": "未保存の変更",
+    "overwrite_file": "ファイルが既に存在します。上書きしますか？",
+    "delete_confirm": "削除の確認",
+    "delete_confirm_message": "'{filename}' を削除してもよろしいですか？この操作は元に戻せません。",
+    "error": "エラー",
+    "warning": "警告",
+    "info": "情報",
+    "success": "成功"
+  },
+  "message": {
+    "file_saved": "ファイルを保存しました",
+    "file_saved_as": "ファイルを保存しました：{filename}",
+    "file_opened": "ファイルを開きました：{filename}",
+    "file_created": "ファイルを作成しました：{filename}",
+    "file_deleted": "ファイルを削除しました：{filename}",
+    "file_renamed": "ファイル名を変更しました：{filename}",
+    "file_not_found": "ファイルが見つかりません：{filename}",
+    "file_read_error": "ファイルの読み込みに失敗しました：{error}",
+    "file_write_error": "ファイルの保存に失敗しました：{error}",
+    "folder_opened": "フォルダを開きました：{foldername}",
+    "folder_created": "フォルダを作成しました：{foldername}",
+    "encoding_changed": "エンコーディングを変更しました：{encoding}",
+    "language_changed": "言語を切り替えました：{language}",
+    "theme_changed": "テーマを変更しました：{theme}",
+    "copied_to_clipboard": "クリップボードにコピーしました",
+    "error_occurred": "エラーが発生しました：{error}",
+    "operation_completed": "操作が完了しました",
+    "processing": "処理中...",
+    "loading": "読み込み中...",
+    "saving": "保存中..."
+  },
+  "about": {
+    "title": "Chango Editor について",
+    "header": "Chango Editor v1.4.0 🚀",
+    "intro": "PythonとPyQt6で構築された、Sublime Textのような強力なコードエディタ",
+    "latest_features": "v1.4.0 最新機能 - 完全国際化対応：",
+    "feature_themes": "🌐 8言語インターフェース - 简体中文、English、日本語、Bahasa Melayu、한국어、Русский、Español、繁體中文",
+    "feature_zero_config": "🔄 リアルタイム言語切り替え - 再起動不要、即座にUI更新",
+    "feature_scenarios": "📱 スマート言語検出 - システム言語を自動識別、起動時から現地化",
+    "feature_realtime": "🎯 完全翻訳カバー - メニュー、ツールバー、ダイアログ、すべてのメッセージを翻訳",
+    "v133_features": "v1.3.4 テーマシステム拡張：",
+    "feature_folder": "🌈 5つの新テーマ - Deep Blue、Light Yellow、Ocean、Forest、Monokai",
+    "feature_path": "📁 ゼロコード設定 - JSONファイルを追加するだけで新しいテーマを作成",
+    "feature_icons": "🚀 リアルタイム切り替え - メニューで即座に切り替え、再起動不要",
+    "core_features": "コア機能：",
+    "feature_7themes": "🌍 8言語 - 完全国際化対応、リアルタイム切り替え",
+    "feature_editing": "🎨 7つの美しいテーマ - クラシックから目に優しいものまで、マルチシナリオ",
+    "feature_search": "📝 強力な編集機能 - 20以上の言語のシンタックスハイライト",
+    "feature_file_mgmt": "📁 スマートファイル管理 - ツリーブラウザ、ドラッグ&ドロップ、クイックナビゲーション",
+    "feature_toolbar": "⚡ アイコンツールバー - 直感的なアイコン、完全なショートカットサポート",
+    "shortcuts_title": "キーボードショートカット：",
+    "shortcuts_line1": "Ctrl+N 新規作成 | Ctrl+O ファイルを開く | Ctrl+Shift+O フォルダを開く",
+    "shortcuts_line2": "Ctrl+S 保存 | Ctrl+F 検索 | Ctrl+H 置換 | Ctrl+Shift+C すべて選択してコピー",
+    "update_date": "最終更新：",
+    "date": "2025年10月8日",
+    "copyright": "© 2025 Chango Team | MIT License"
+  },
+  "settings": {
+    "title": "設定",
+    "general": "一般",
+    "editor": "エディタ",
+    "appearance": "外観",
+    "language": "言語",
+    "font_size": "フォントサイズ",
+    "font_family": "フォント",
+    "tab_size": "タブサイズ",
+    "auto_save": "自動保存",
+    "word_wrap": "折り返し",
+    "line_numbers": "行番号",
+    "theme": "テーマ"
+  },
+  "shortcuts": {
+    "title": "キーボードショートカット",
+    "file_operations": "ファイル操作",
+    "edit_operations": "編集操作",
+    "view_operations": "表示操作",
+    "search_operations": "検索操作"
+  },
+  "common": {
+    "search": "検索",
+    "replace": "置換",
+    "find_next": "次を検索",
+    "find_previous": "前を検索",
+    "replace_all": "すべて置換",
+    "match_case": "大文字小文字を区別",
+    "whole_word": "単語単位",
+    "regex": "正規表現",
+    "name": "名前",
+    "type": "種類",
+    "size": "サイズ",
+    "modified": "更新日時",
+    "path": "パス"
+  }
+}
+

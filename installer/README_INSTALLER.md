@@ -24,18 +24,14 @@
 
 ## 🚀 快速开始
 
-### 使用统一构建脚本 (推荐)
+### 推荐方式：使用自动化脚本
 ```bash
-# 构建所有类型的安装包
-python build_installer.py all
+# 一键构建 EXE + MSI
+python quick_release.py
 
-# 构建特定类型
-python build_installer.py inno    # Inno Setup
-python build_installer.py nsis    # NSIS
-python build_installer.py msi     # MSI
-
-# 清理构建文件
-python build_installer.py --clean
+# 或单独构建
+python build_exe.py    # 便携版 EXE
+python build_msi.py    # MSI 安装包
 ```
 
 ### 手动构建
@@ -58,10 +54,11 @@ python build_installer.py --clean
 ## 📁 文件说明
 
 ### 脚本文件
-- `chango_editor_setup.iss` - Inno Setup 安装脚本
-- `chango_editor_nsis.nsi` - NSIS 安装脚本
-- `build_msi.py` - Python MSI 构建脚本
-- `build_installer.py` - 统一构建工具
+- `../build_exe.py` - 便携版 EXE 构建脚本 (PyInstaller)
+- `../build_msi.py` - MSI 安装包构建脚本 (cx_Freeze)
+- `../quick_release.py` - 自动化发布脚本 (推荐使用)
+- `chango_editor_setup.iss` - Inno Setup 安装脚本 (可选)
+- `chango_editor_nsis.nsi` - NSIS 安装脚本 (可选)
 
 ### 辅助文件
 - `install_info.txt` - 安装前信息页面

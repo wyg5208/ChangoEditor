@@ -1,13 +1,22 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 Chango Editor MSI安装包构建脚本
 支持使用cx_Freeze创建MSI安装包
 
 使用方法：
-1. 安装依赖：pip install cx_freeze
-2. 运行脚本：python build_msi.py bdist_msi
+1. 激活虚拟环境：Scripts\\activate
+2. 安装依赖：pip install cx_freeze
+3. 运行脚本：python build_msi.py bdist_msi
 
-注意：需要在Windows环境下运行
+注意：
+- 需要在Windows环境下运行
+- 会自动包含所有7个主题文件
+- 会自动包含所有必需的Python标准库
+
+更新历史：
+- 2025年10月6日: 修复urllib模块缺失问题，添加7个主题支持
+- 之前版本: 初始版本
 """
 
 import os
@@ -15,6 +24,12 @@ import sys
 import shutil
 import subprocess
 from cx_Freeze import setup, Executable
+
+# 设置 UTF-8 编码输出
+if sys.platform == 'win32':
+    import io
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
 # 应用信息
 APP_NAME = "ChangoEditor"
@@ -48,40 +63,112 @@ def prepare_build():
     """准备构建环境"""
     print("准备构建环境...")
     
-    # 确保有可执行文件
-    exe_path = "dist/ChangoEditor.exe"
-    if not os.path.exists(exe_path):
-        print("未找到 ChangoEditor.exe，正在构建...")
-        result = subprocess.run([sys.executable, "build_exe.py"], 
-                              capture_output=True, text=True)
-        if result.returncode != 0:
-            print(f"构建exe失败: {result.stderr}")
+    # 验证源文件
+    required_files = [
+        'src/main.py',
+        'src/ui/main_window.py'
+    ]
+    
+    for file_path in required_files:
+        if not os.path.exists(file_path):
+            print(f"❌ 缺少必需文件: {file_path}")
             return False
-        print("exe构建完成")
+        print(f"✅ {file_path}")
     
     return True
 
 # 包含的文件和目录
-include_files = [
-    # 主程序（如果存在预构建的exe）
-    ("dist/ChangoEditor.exe", "ChangoEditor.exe"),
-    # 许可证和说明文件
-    ("LICENSE", "LICENSE.txt"),
-    ("README.md", "README.txt"),
-    # 示例文件
-    ("test_files", "examples"),
-    # 图标文件
+include_files = []
+
+# 添加主题文件
+theme_files = [
+    'resources/themes/dark.json',
+    'resources/themes/light.json',
+    'resources/themes/monokai.json',
+    'resources/themes/deep_blue.json',
+    'resources/themes/ocean.json',
+    'resources/themes/forest.json',
+    'resources/themes/light_yellow.json'
 ]
 
-# 添加图标文件（如果存在）
-icon_file = get_icon_path()
-if icon_file:
-    include_files.append((icon_file, f"icons/{os.path.basename(icon_file)}"))
+for theme_file in theme_files:
+    if os.path.exists(theme_file):
+        include_files.append((theme_file, f"resources/themes/{os.path.basename(theme_file)}"))
+        print(f"添加主题文件: {theme_file}")
+
+# 添加图标文件
+icon_files = [
+    'resources/icons/chango_editor.svg',
+    'resources/icons/chango_editor.png',
+    'resources/icons/chango_editor.ico'
+]
+
+for icon_file in icon_files:
+    if os.path.exists(icon_file):
+        include_files.append((icon_file, f"resources/icons/{os.path.basename(icon_file)}"))
+        print(f"添加图标文件: {icon_file}")
+
+# 添加许可证和说明文件
+if os.path.exists("LICENSE"):
+    include_files.append(("LICENSE", "LICENSE.txt"))
+if os.path.exists("README.md"):
+    include_files.append(("README.md", "README.txt"))
+
+# 添加示例文件
+if os.path.exists("test_files"):
+    include_files.append(("test_files", "examples"))
 
 # 构建选项
 build_exe_options = {
-    "packages": ["PyQt6", "pygments", "watchdog", "chardet"],
-    "excludes": ["tkinter", "unittest", "email", "html", "http", "json", "urllib", "xml"],
+    "packages": [
+        # PyQt6核心包
+        "PyQt6",
+        "PyQt6.QtCore",
+        "PyQt6.QtGui",
+        "PyQt6.QtWidgets",
+        "PyQt6.QtPrintSupport",
+        
+        # 语法高亮
+        "pygments",
+        "pygments.lexers",
+        "pygments.formatters",
+        "pygments.lexers.python",
+        "pygments.lexers.web",
+        "pygments.lexers.shell",
+        "pygments.lexers.data",
+        
+        # 文件监控
+        "watchdog",
+        "watchdog.observers",
+        "watchdog.events",
+        
+        # 文件编码检测
+        "chardet",
+        
+        # Python标准库（必需）
+        "urllib",
+        "urllib.parse",
+        "pathlib",
+        "json",
+        "os",
+        "sys",
+        
+        # 项目模块
+        "src",
+        "src.ui",
+        "src.core",
+        "src.utils"
+    ],
+    "includes": [
+        "urllib.parse",
+        "pathlib",
+    ],
+    "excludes": [
+        "tkinter",
+        "unittest",
+        "test",
+        "tests"
+    ],
     "include_files": include_files,
     "build_exe": "build/exe",
     "optimize": 2,

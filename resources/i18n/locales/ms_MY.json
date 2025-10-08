@@ -1,0 +1,223 @@
+{
+  "meta": {
+    "language": "Bahasa Melayu",
+    "code": "ms_MY",
+    "version": "1.0.0",
+    "author": "ChangoSoft"
+  },
+  "app": {
+    "title": "Chango Editor",
+    "description": "Editor kod moden"
+  },
+  "menu": {
+    "file": {
+      "title": "&Fail",
+      "new": {
+        "text": "&Baru",
+        "tip": "Cipta fail baru"
+      },
+      "open": {
+        "text": "&Buka Fail",
+        "tip": "Buka fail"
+      },
+      "open_folder": {
+        "text": "Buka Fol&der",
+        "tip": "Buka folder"
+      },
+      "save": {
+        "text": "&Simpan",
+        "tip": "Simpan fail semasa"
+      },
+      "save_as": {
+        "text": "Simpan Seb&agai",
+        "tip": "Simpan sebagai fail baru"
+      },
+      "close_current": {
+        "text": "&Tutup",
+        "tip": "Tutup fail semasa"
+      },
+      "close_all": {
+        "text": "Tutup Semu&a",
+        "tip": "Tutup semua fail"
+      },
+      "exit": {
+        "text": "Ke&luar",
+        "tip": "Keluar aplikasi"
+      }
+    },
+    "edit": {
+      "title": "&Edit",
+      "undo": {
+        "text": "&Buat Asal",
+        "tip": "Buat asal tindakan terakhir"
+      },
+      "redo": {
+        "text": "Buat &Semula",
+        "tip": "Buat semula tindakan terakhir"
+      },
+      "cut": {
+        "text": "Po&tong",
+        "tip": "Potong teks terpilih"
+      },
+      "copy": {
+        "text": "&Salin",
+        "tip": "Salin teks terpilih"
+      },
+      "paste": {
+        "text": "Tam&pal",
+        "tip": "Tampal kandungan papan keratan"
+      }
+    },
+    "view": {
+      "title": "&Lihat",
+      "file_explorer": {
+        "text": "Penjelajah &Fail",
+        "tip": "Tunjuk/Sembunyikan penjelajah fail"
+      }
+    },
+    "theme": {
+      "title": "&Tema",
+      "dark": "Tema Gelap",
+      "light": "Tema Cerah",
+      "deep_blue": "Tema Biru Dalam",
+      "ocean": "Tema Lautan",
+      "forest": "Tema Hutan",
+      "monokai": "Tema Monokai",
+      "light_yellow": "Tema Kuning Cerah"
+    },
+    "search": {
+      "title": "&Cari",
+      "find": {
+        "text": "&Cari",
+        "tip": "Cari dalam fail semasa"
+      },
+      "replace": {
+        "text": "&Ganti",
+        "tip": "Cari dan ganti"
+      }
+    },
+    "language": "Bahasa",
+    "help": {
+      "title": "Ban&tuan",
+      "about": {
+        "text": "Tent&ang",
+        "tip": "Tentang Chango Editor"
+      },
+      "user_guide": {
+        "text": "Pand&uan",
+        "tip": "Lihat panduan pengguna"
+      }
+    }
+  },
+  "toolbar": {
+    "main": "Bar Alat Utama",
+    "new": {
+      "text": "Baru",
+      "tooltip": "Fail Baru (Ctrl+N)",
+      "tip": "Cipta fail baru"
+    },
+    "open_file": {
+      "text": "Buka Fail",
+      "tooltip": "Buka Fail (Ctrl+O)",
+      "tip": "Buka fail"
+    },
+    "open_folder": {
+      "text": "Buka Folder",
+      "tooltip": "Buka Folder (Ctrl+Shift+O)",
+      "tip": "Buka folder"
+    },
+    "save": {
+      "text": "Simpan",
+      "tooltip": "Simpan Fail (Ctrl+S)",
+      "tip": "Simpan fail semasa"
+    },
+    "close_current": {
+      "text": "Tutup",
+      "tooltip": "Tutup Fail Semasa (Ctrl+W)",
+      "tip": "Tutup fail semasa"
+    },
+    "close_all": {
+      "text": "Tutup Semua",
+      "tooltip": "Tutup Semua Fail (Ctrl+Shift+W)",
+      "tip": "Tutup semua fail"
+    },
+    "undo": {
+      "text": "Buat Asal",
+      "tooltip": "Buat Asal (Ctrl+Z)",
+      "tip": "Buat asal tindakan terakhir"
+    },
+    "redo": {
+      "text": "Buat Semula",
+      "tooltip": "Buat Semula (Ctrl+Y)",
+      "tip": "Buat semula tindakan terakhir"
+    },
+    "clear": {
+      "text": "Kosongkan",
+      "tooltip": "Kosongkan Semua (Ctrl+Delete)",
+      "tip": "Kosongkan semua kandungan dalam editor"
+    },
+    "select_all": {
+      "text": "Pilih Semua",
+      "tooltip": "Pilih Semua (Ctrl+A)",
+      "tip": "Pilih semua kandungan dalam editor"
+    },
+    "copy": {
+      "text": "Salin",
+      "tooltip": "Salin (Ctrl+C)",
+      "tip": "Salin teks terpilih"
+    },
+    "paste": {
+      "text": "Tampal",
+      "tooltip": "Tampal (Ctrl+V)",
+      "tip": "Tampal kandungan papan keratan"
+    },
+    "select_copy": {
+      "text": "Pilih Semua & Salin",
+      "tooltip": "Pilih Semua & Salin (Ctrl+Shift+C)",
+      "tip": "Pilih semua dan salin ke papan keratan"
+    },
+    "find": {
+      "text": "Cari",
+      "tooltip": "Cari (Ctrl+F)",
+      "tip": "Cari dalam fail semasa"
+    },
+    "replace": {
+      "text": "Ganti",
+      "tooltip": "Ganti (Ctrl+H)",
+      "tip": "Cari dan ganti"
+    }
+  },
+  "statusbar": {
+    "ready": "Sedia"
+  },
+  "message": {
+    "language_changed": "Bahasa ditukar kepada: {language}"
+  },
+  "about": {
+    "title": "Tentang Chango Editor",
+    "header": "Chango Editor v1.4.0 🚀",
+    "intro": "Editor kod berkuasa seperti Sublime Text dibina dengan Python dan PyQt6",
+    "latest_features": "v1.4.0 Ciri Terkini - Antarabangsa Lengkap:",
+    "feature_themes": "🌐 8 Antara Muka Bahasa - 简体中文, English, 日本語, Bahasa Melayu, 한국어, Русский, Español, 繁體中文",
+    "feature_zero_config": "🔄 Penukaran Bahasa Masa Nyata - Tanpa mula semula, kemas kini UI serta-merta",
+    "feature_scenarios": "📱 Pengesanan Bahasa Pintar - Kesan bahasa sistem secara automatik, penyetempatan segera",
+    "feature_realtime": "🎯 Liputan Terjemahan Lengkap - Menu, bar alat, dialog, semua mesej diterjemahkan",
+    "v133_features": "v1.3.4 Sambungan Sistem Tema:",
+    "feature_folder": "🌈 5 Tema Baru - Deep Blue, Light Yellow, Ocean, Forest, Monokai",
+    "feature_path": "📁 Konfigurasi Tanpa Kod - Cipta tema baru dengan menambah fail JSON",
+    "feature_icons": "🚀 Penukaran Masa Nyata - Tukar menu serta-merta, tanpa mula semula",
+    "core_features": "Ciri Teras:",
+    "feature_7themes": "🌍 8 Bahasa - Antarabangsa lengkap dengan penukaran masa nyata",
+    "feature_editing": "🎨 7 Tema Cantik - Dari klasik hingga mesra mata, pelbagai senario",
+    "feature_search": "📝 Penyuntingan Berkuasa - Penyerlahan sintaks untuk 20+ bahasa",
+    "feature_file_mgmt": "📁 Pengurusan Fail Pintar - Pelayar pokok, seret & lepas, navigasi pantas",
+    "feature_toolbar": "⚡ Bar Alat Ikon - Ikon intuitif, sokongan pintasan lengkap",
+    "shortcuts_title": "Pintasan Papan Kekunci:",
+    "shortcuts_line1": "Ctrl+N Baru | Ctrl+O Buka Fail | Ctrl+Shift+O Buka Folder",
+    "shortcuts_line2": "Ctrl+S Simpan | Ctrl+F Cari | Ctrl+H Ganti | Ctrl+Shift+C Pilih Semua & Salin",
+    "update_date": "Dikemas Kini:",
+    "date": "8 Oktober 2025",
+    "copyright": "© 2025 Chango Team | MIT License"
+  }
+}
+

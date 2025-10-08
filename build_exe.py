@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 Chango Editor PyInstaller 打包脚本
 自动化打包成独立exe文件
-更新时间: 2025年1月6日
+
+更新历史:
+- 2025年10月6日: 更新主题文件打包配置，支持7个主题
+- 2025年1月6日: 初始版本
 """
 
 import os
@@ -10,6 +14,12 @@ import sys
 import subprocess
 import shutil
 from pathlib import Path
+
+# 设置 UTF-8 编码输出
+if sys.platform == 'win32':
+    import io
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
 def clean_build_dirs():
     """清理构建目录"""
@@ -69,7 +79,12 @@ def verify_dependencies():
         'src/main.py',
         'src/ui/main_window.py',
         'resources/themes/dark.json',
-        'resources/themes/light.json'
+        'resources/themes/light.json',
+        'resources/themes/monokai.json',
+        'resources/themes/deep_blue.json',
+        'resources/themes/ocean.json',
+        'resources/themes/forest.json',
+        'resources/themes/light_yellow.json'
     ]
     
     for file_path in required_files:
@@ -224,12 +239,22 @@ def build_exe():
         'src/main.py'
     ]
     
-    # 添加主题文件
-    theme_files = ['resources/themes/dark.json', 'resources/themes/light.json']
+    # 添加所有主题文件
+    theme_files = [
+        'resources/themes/dark.json',
+        'resources/themes/light.json',
+        'resources/themes/monokai.json',
+        'resources/themes/deep_blue.json',
+        'resources/themes/ocean.json',
+        'resources/themes/forest.json',
+        'resources/themes/light_yellow.json'
+    ]
     for theme_file in theme_files:
         if os.path.exists(theme_file):
             cmd.extend(['--add-data', f'{theme_file};resources/themes'])
             print(f"添加主题文件: {theme_file}")
+        else:
+            print(f"⚠️  主题文件不存在: {theme_file}")
     
     # 添加图标文件
     icon_files = [

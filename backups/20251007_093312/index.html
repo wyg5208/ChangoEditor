@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chango Editor - 资源中心</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .header {
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            color: #667eea;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header .subtitle {
+            font-size: 1.3em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .version-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .resources {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .resource-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-10px);
+            border-color: #667eea;
+        }
+        
+        .resource-card h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .resource-card p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .download-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .download-section h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+        }
+        
+        .download-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .info-item {
+            text-align: left;
+        }
+        
+        .info-item strong {
+            color: #667eea;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e9ecef;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px;
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .resources {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Chango Editor</h1>
+            <p class="subtitle">专业代码编辑器 - 资源中心</p>
+            <div class="version-badge">v1.2.0</div>
+        </div>
+        
+        <div class="resources">
+            <div class="resource-card">
+                <h3>📖 用户手册</h3>
+                <p>完整的使用指南，包含所有功能介绍、快捷键参考、使用技巧等详细信息。</p>
+                <a href="user-guide.html" class="btn">查看用户手册</a>
+            </div>
+            
+            <div class="resource-card">
+                <h3>💾 下载中心</h3>
+                <p>获取最新版本的 Chango Editor，专业代码编辑器，支持 20+ 编程语言。</p>
+                <a href="downloads/ChangoEditor-v1.2.0.exe" class="btn" download>立即下载 Windows 版</a>
+            </div>
+        </div>
+        
+        <div id="download" class="download-section">
+            <h3>📦 下载信息</h3>
+            <p>最新版本：<strong>v1.2.0</strong> | 更新时间：<strong>2025年1月6日</strong></p>
+            
+            <div style="text-align: center; margin: 30px 0;">
+                <a href="downloads/ChangoEditor-v1.2.0.exe" class="btn" download style="font-size: 1.2em; padding: 15px 30px;">
+                    🚀 下载 ChangoEditor v1.2.0 (36.4 MB)
+                </a>
+            </div>
+            
+            <div class="download-info">
+                <div class="info-item">
+                    <strong>Windows 版本</strong><br>
+                    文件大小：36.4 MB<br>
+                    支持系统：Windows 10/11<br>
+                    文件格式：.exe 单文件<br>
+                    架构：64位系统
+                </div>
+                <div class="info-item">
+                    <strong>核心功能</strong><br>
+                    ✨ 20+ 编程语言语法高亮<br>
+                    📁 树形文件浏览器<br>
+                    🎨 深色/明亮主题切换<br>
+                    🔍 智能查找和替换
+                </div>
+                <div class="info-item">
+                    <strong>使用说明</strong><br>
+                    ✅ 绿色免安装版本<br>
+                    ✅ 下载后直接运行<br>
+                    ✅ 支持文件拖拽打开<br>
+                    ✅ 完全独立运行
+                </div>
+            </div>
+            
+            <div style="background: #e3f2fd; padding: 15px; border-radius: 10px; margin-top: 20px; border-left: 4px solid #2196f3;">
+                <p style="margin: 0; color: #1976d2;">
+                    <strong>💡 使用提示</strong>：下载后直接双击即可运行，无需安装任何依赖。首次运行可能需要几秒钟解压，请耐心等待。
+                </p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2025 Chango Editor | 基于 MIT 协议开源 | 让编程变得更美好 🎉</p>
+        </div>
+    </div>
+</body>
+</html>

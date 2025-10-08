@@ -22,6 +22,8 @@ from ui.tab_widget import TabWidget
 from utils.themes import ThemeManager
 from ui.file_explorer import FileExplorer
 from utils.icon_provider import Icons, IconProvider
+from src.core.i18n import tr, get_i18n_manager
+from src.ui.language_selector import LanguageMenu
 
 
 class MainWindow(QMainWindow):
@@ -34,7 +36,12 @@ class MainWindow(QMainWindow):
     
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Chango Editor")
+        
+        # 初始化国际化（在所有UI创建之前）
+        self.i18n = get_i18n_manager()
+        self.i18n.language_changed.connect(self._on_language_changed)
+        
+        self.setWindowTitle(tr("app.title"))
         self.setGeometry(100, 100, 1200, 800)
         
         # 初始化主题管理器
@@ -63,7 +70,7 @@ class MainWindow(QMainWindow):
         # 最近打开的目录
         self.last_opened_directory = os.getcwd()
         
-        print("Chango Editor 主窗口初始化完成")
+        print(f"Chango Editor 主窗口初始化完成 - 语言: {self.i18n.get_current_locale_name()}")
     
     def _init_icons(self):
         """初始化图标系统"""
@@ -110,85 +117,85 @@ class MainWindow(QMainWindow):
         menubar = self.menuBar()
         
         # 文件菜单
-        file_menu = menubar.addMenu("文件(&F)")
+        file_menu = menubar.addMenu(tr("menu.file.title"))
         
         # 新建文件
-        new_action = QAction("新建(&N)", self)
+        new_action = QAction(tr("menu.file.new.text"), self)
         new_action.setShortcut(QKeySequence.StandardKey.New)
-        new_action.setStatusTip("创建新文件")
+        new_action.setStatusTip(tr("menu.file.new.tip"))
         new_action.triggered.connect(self.new_file)
         file_menu.addAction(new_action)
         
         # 打开文件
-        open_action = QAction("打开文件(&O)", self)
+        open_action = QAction(tr("menu.file.open.text"), self)
         open_action.setShortcut(QKeySequence.StandardKey.Open)
-        open_action.setStatusTip("打开文件")
+        open_action.setStatusTip(tr("menu.file.open.tip"))
         open_action.triggered.connect(self.open_file)
         file_menu.addAction(open_action)
         
         # 打开文件夹
-        open_folder_action = QAction("打开文件夹(&F)", self)
+        open_folder_action = QAction(tr("menu.file.open_folder.text"), self)
         open_folder_action.setShortcut(QKeySequence("Ctrl+Shift+O"))
-        open_folder_action.setStatusTip("打开文件夹")
+        open_folder_action.setStatusTip(tr("menu.file.open_folder.tip"))
         open_folder_action.triggered.connect(self.open_folder)
         file_menu.addAction(open_folder_action)
         
         file_menu.addSeparator()
         
         # 保存文件
-        save_action = QAction("保存(&S)", self)
+        save_action = QAction(tr("menu.file.save.text"), self)
         save_action.setShortcut(QKeySequence.StandardKey.Save)
-        save_action.setStatusTip("保存当前文件")
+        save_action.setStatusTip(tr("menu.file.save.tip"))
         save_action.triggered.connect(self.save_file)
         file_menu.addAction(save_action)
         
         # 另存为
-        save_as_action = QAction("另存为(&A)", self)
+        save_as_action = QAction(tr("menu.file.save_as.text"), self)
         save_as_action.setShortcut(QKeySequence.StandardKey.SaveAs)
-        save_as_action.setStatusTip("另存为新文件")
+        save_as_action.setStatusTip(tr("menu.file.save_as.tip"))
         save_as_action.triggered.connect(self.save_file_as)
         file_menu.addAction(save_as_action)
         
         file_menu.addSeparator()
         
         # 关闭当前文件
-        close_current_action = QAction("关闭当前文件(&C)", self)
+        close_current_action = QAction(tr("menu.file.close_current.text"), self)
         close_current_action.setShortcut(QKeySequence("Ctrl+W"))
-        close_current_action.setStatusTip("关闭当前文件")
+        close_current_action.setStatusTip(tr("menu.file.close_current.tip"))
         close_current_action.triggered.connect(self.close_current_file)
         file_menu.addAction(close_current_action)
         
         # 关闭所有文件
-        close_all_action = QAction("关闭所有文件(&L)", self)
+        close_all_action = QAction(tr("menu.file.close_all.text"), self)
         close_all_action.setShortcut(QKeySequence("Ctrl+Shift+W"))
-        close_all_action.setStatusTip("关闭所有文件")
+        close_all_action.setStatusTip(tr("menu.file.close_all.tip"))
         close_all_action.triggered.connect(self.close_all_files)
         file_menu.addAction(close_all_action)
         
         file_menu.addSeparator()
         
         # 退出
-        exit_action = QAction("退出(&X)", self)
+        exit_action = QAction(tr("menu.file.exit.text"), self)
         exit_action.setShortcut(QKeySequence.StandardKey.Quit)
-        exit_action.setStatusTip("退出应用程序")
+        exit_action.setStatusTip(tr("menu.file.exit.tip"))
         exit_action.triggered.connect(self.close)
         file_menu.addAction(exit_action)
         
         # 编辑菜单
-        edit_menu = menubar.addMenu("编辑(&E)")
+        edit_menu = menubar.addMenu(tr("menu.edit.title"))
         
         # 撤销
-        self.undo_action = QAction("撤销(&U)", self)
+        self.undo_action = QAction(tr("menu.edit.undo.text"), self)
         self.undo_action.setShortcut(QKeySequence.StandardKey.Undo)
-        self.undo_action.setStatusTip("撤销上一个操作")
+        self.undo_action.setStatusTip(tr("menu.edit.undo.tip"))
         self.undo_action.triggered.connect(self.undo)
         self.undo_action.setEnabled(False)
         edit_menu.addAction(self.undo_action)
         
         # 重做
-        self.redo_action = QAction("重做(&R)", self)
+        self.redo_action = QAction(tr("menu.edit.redo.text"), self)
         self.redo_action.setShortcut(QKeySequence.StandardKey.Redo)
-        self.redo_action.setStatusTip("重做上一个操作")
+        self.redo_action.setStatusTip(tr("menu.edit.redo.tip"))
         self.redo_action.triggered.connect(self.redo)
         self.redo_action.setEnabled(False)
         edit_menu.addAction(self.redo_action)
@@ -196,41 +203,41 @@ class MainWindow(QMainWindow):
         edit_menu.addSeparator()
         
         # 剪切
-        self.cut_action = QAction("剪切(&T)", self)
+        self.cut_action = QAction(tr("menu.edit.cut.text"), self)
         self.cut_action.setShortcut(QKeySequence.StandardKey.Cut)
-        self.cut_action.setStatusTip("剪切选中文本")
+        self.cut_action.setStatusTip(tr("menu.edit.cut.tip"))
         self.cut_action.triggered.connect(self.cut)
         self.cut_action.setEnabled(False)
         edit_menu.addAction(self.cut_action)
         
         # 复制
-        self.copy_action = QAction("复制(&C)", self)
+        self.copy_action = QAction(tr("menu.edit.copy.text"), self)
         self.copy_action.setShortcut(QKeySequence.StandardKey.Copy)
-        self.copy_action.setStatusTip("复制选中文本")
+        self.copy_action.setStatusTip(tr("menu.edit.copy.tip"))
         self.copy_action.triggered.connect(self.copy)
         self.copy_action.setEnabled(False)
         edit_menu.addAction(self.copy_action)
         
         # 粘贴
-        self.paste_action = QAction("粘贴(&P)", self)
+        self.paste_action = QAction(tr("menu.edit.paste.text"), self)
         self.paste_action.setShortcut(QKeySequence.StandardKey.Paste)
-        self.paste_action.setStatusTip("粘贴剪贴板内容")
+        self.paste_action.setStatusTip(tr("menu.edit.paste.tip"))
         self.paste_action.triggered.connect(self.paste)
         edit_menu.addAction(self.paste_action)
         
         # 查看菜单
-        view_menu = menubar.addMenu("查看(&V)")
+        view_menu = menubar.addMenu(tr("menu.view.title"))
         
         # 显示/隐藏文件浏览器
-        toggle_explorer_action = QAction("文件浏览器(&E)", self)
+        toggle_explorer_action = QAction(tr("menu.view.file_explorer.text"), self)
         toggle_explorer_action.setCheckable(True)
         toggle_explorer_action.setChecked(True)
-        toggle_explorer_action.setStatusTip("显示/隐藏文件浏览器")
+        toggle_explorer_action.setStatusTip(tr("menu.view.file_explorer.tip"))
         toggle_explorer_action.triggered.connect(self._toggle_file_explorer)
         view_menu.addAction(toggle_explorer_action)
         
         # 独立的主题菜单
-        theme_menu = menubar.addMenu("主题(&T)")
+        theme_menu = menubar.addMenu(tr("menu.theme.title"))
         
         # 添加主题切换选项
         theme_names = self.theme_manager.get_theme_names()
@@ -240,7 +247,13 @@ class MainWindow(QMainWindow):
         
         for theme_name in theme_names:
             theme = self.theme_manager.get_theme(theme_name)
-            action = QAction(theme.get('name', theme_name), self)
+            # 使用翻译键获取主题名称，如果没有翻译则使用原始名称
+            theme_display_name = tr(f"menu.theme.{theme_name}")
+            if theme_display_name == f"menu.theme.{theme_name}":
+                # 如果翻译键不存在，使用主题文件中的名称
+                theme_display_name = theme.get('name', theme_name)
+            
+            action = QAction(theme_display_name, self)
             action.setCheckable(True)
             action.setActionGroup(self.theme_group)
             action.triggered.connect(lambda checked, name=theme_name: self._change_theme(name))
@@ -253,28 +266,32 @@ class MainWindow(QMainWindow):
             self.theme_actions[theme_name] = action
         
         # 搜索菜单
-        search_menu = menubar.addMenu("搜索(&S)")
+        search_menu = menubar.addMenu(tr("menu.search.title"))
         
         # 查找
-        find_action = QAction("查找(&F)", self)
+        find_action = QAction(tr("menu.search.find.text"), self)
         find_action.setShortcut(QKeySequence.StandardKey.Find)
-        find_action.setStatusTip("在当前文件中查找")
+        find_action.setStatusTip(tr("menu.search.find.tip"))
         find_action.triggered.connect(self.show_find_dialog)
         search_menu.addAction(find_action)
         
         # 替换
-        replace_action = QAction("替换(&R)", self)
+        replace_action = QAction(tr("menu.search.replace.text"), self)
         replace_action.setShortcut(QKeySequence.StandardKey.Replace)
-        replace_action.setStatusTip("查找并替换")
+        replace_action.setStatusTip(tr("menu.search.replace.tip"))
         replace_action.triggered.connect(self.show_replace_dialog)
         search_menu.addAction(replace_action)
         
+        # ===== 语言菜单 (新增) =====
+        self.language_menu = LanguageMenu(self)
+        menubar.addMenu(self.language_menu)
+        
         # 帮助菜单
-        help_menu = menubar.addMenu("帮助(&H)")
+        help_menu = menubar.addMenu(tr("menu.help.title"))
         
         # 使用说明
-        user_guide_action = QAction("使用说明(&U)", self)
-        user_guide_action.setStatusTip("查看详细的使用指南")
+        user_guide_action = QAction(tr("menu.help.user_guide.text"), self)
+        user_guide_action.setStatusTip(tr("menu.help.user_guide.tip"))
         user_guide_action.triggered.connect(self.show_user_guide)
         help_menu.addAction(user_guide_action)
         
@@ -282,14 +299,15 @@ class MainWindow(QMainWindow):
         help_menu.addSeparator()
         
         # 关于
-        about_action = QAction("关于 Chango Editor(&A)", self)
-        about_action.setStatusTip("关于 Chango Editor")
+        about_action = QAction(tr("menu.help.about.text"), self)
+        about_action.setStatusTip(tr("menu.help.about.tip"))
         about_action.triggered.connect(self.show_about)
         help_menu.addAction(about_action)
     
     def _create_toolbar(self):
         """创建工具栏 - 使用现代化SVG图标"""
-        toolbar = QToolBar("主工具栏")
+        toolbar = QToolBar(tr("toolbar.main"))
+        self._toolbar = toolbar  # 保存引用以便后续更新
         self.addToolBar(toolbar)
         
         # 设置图标大小为18x18（适中清晰）
@@ -300,104 +318,104 @@ class MainWindow(QMainWindow):
         toolbar.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
         
         # 新建按钮
-        new_btn = toolbar.addAction(Icons.FILE_NEW, "新建")
-        new_btn.setToolTip("新建文件 (Ctrl+N)")
-        new_btn.setStatusTip("创建新文件")
+        new_btn = toolbar.addAction(Icons.FILE_NEW, tr("toolbar.new.text"))
+        new_btn.setToolTip(tr("toolbar.new.tooltip"))
+        new_btn.setStatusTip(tr("toolbar.new.tip"))
         new_btn.triggered.connect(self.new_file)
         
         # 打开文件按钮
-        open_btn = toolbar.addAction(Icons.FOLDER_OPEN, "打开文件")
-        open_btn.setToolTip("打开文件 (Ctrl+O)")
-        open_btn.setStatusTip("打开文件")
+        open_btn = toolbar.addAction(Icons.FOLDER_OPEN, tr("toolbar.open_file.text"))
+        open_btn.setToolTip(tr("toolbar.open_file.tooltip"))
+        open_btn.setStatusTip(tr("toolbar.open_file.tip"))
         open_btn.triggered.connect(self.open_file)
         
         # 打开文件夹按钮
-        open_folder_btn = toolbar.addAction(Icons.FOLDER, "打开文件夹")
-        open_folder_btn.setToolTip("打开文件夹 (Ctrl+Shift+O)")
-        open_folder_btn.setStatusTip("打开文件夹")
+        open_folder_btn = toolbar.addAction(Icons.FOLDER, tr("toolbar.open_folder.text"))
+        open_folder_btn.setToolTip(tr("toolbar.open_folder.tooltip"))
+        open_folder_btn.setStatusTip(tr("toolbar.open_folder.tip"))
         open_folder_btn.triggered.connect(self.open_folder)
         
         # 保存按钮
-        save_btn = toolbar.addAction(Icons.SAVE, "保存")
-        save_btn.setToolTip("保存文件 (Ctrl+S)")
-        save_btn.setStatusTip("保存当前文件")
+        save_btn = toolbar.addAction(Icons.SAVE, tr("toolbar.save.text"))
+        save_btn.setToolTip(tr("toolbar.save.tooltip"))
+        save_btn.setStatusTip(tr("toolbar.save.tip"))
         save_btn.triggered.connect(self.save_file)
         
         toolbar.addSeparator()
         
         # 关闭当前按钮
-        close_current_btn = toolbar.addAction(Icons.TIMES_CIRCLE, "关闭")
-        close_current_btn.setToolTip("关闭当前文件 (Ctrl+W)")
-        close_current_btn.setStatusTip("关闭当前文件")
+        close_current_btn = toolbar.addAction(Icons.TIMES_CIRCLE, tr("toolbar.close_current.text"))
+        close_current_btn.setToolTip(tr("toolbar.close_current.tooltip"))
+        close_current_btn.setStatusTip(tr("toolbar.close_current.tip"))
         close_current_btn.triggered.connect(self.close_current_file)
         
         # 关闭所有按钮
-        close_all_btn = toolbar.addAction(Icons.FOLDER_TIMES, "全部关闭")
-        close_all_btn.setToolTip("关闭所有文件 (Ctrl+Shift+W)")
-        close_all_btn.setStatusTip("关闭所有文件")
+        close_all_btn = toolbar.addAction(Icons.FOLDER_TIMES, tr("toolbar.close_all.text"))
+        close_all_btn.setToolTip(tr("toolbar.close_all.tooltip"))
+        close_all_btn.setStatusTip(tr("toolbar.close_all.tip"))
         close_all_btn.triggered.connect(self.close_all_files)
         
         toolbar.addSeparator()
         
         # 撤销按钮
-        self.undo_btn = toolbar.addAction(Icons.UNDO, "撤销")
-        self.undo_btn.setToolTip("撤销操作 (Ctrl+Z)")
-        self.undo_btn.setStatusTip("撤销上一个操作")
+        self.undo_btn = toolbar.addAction(Icons.UNDO, tr("toolbar.undo.text"))
+        self.undo_btn.setToolTip(tr("toolbar.undo.tooltip"))
+        self.undo_btn.setStatusTip(tr("toolbar.undo.tip"))
         self.undo_btn.triggered.connect(self.undo)
         self.undo_btn.setEnabled(False)
         
         # 重做按钮
-        self.redo_btn = toolbar.addAction(Icons.REDO, "重做")
-        self.redo_btn.setToolTip("重做操作 (Ctrl+Y)")
-        self.redo_btn.setStatusTip("重做上一个操作")
+        self.redo_btn = toolbar.addAction(Icons.REDO, tr("toolbar.redo.text"))
+        self.redo_btn.setToolTip(tr("toolbar.redo.tooltip"))
+        self.redo_btn.setStatusTip(tr("toolbar.redo.tip"))
         self.redo_btn.triggered.connect(self.redo)
         self.redo_btn.setEnabled(False)
         
         toolbar.addSeparator()
         
         # 清除按钮
-        clear_btn = toolbar.addAction(Icons.TRASH, "清除")
-        clear_btn.setToolTip("清除所有内容 (Ctrl+Delete)")
-        clear_btn.setStatusTip("清除当前编辑区所有内容")
+        clear_btn = toolbar.addAction(Icons.TRASH, tr("toolbar.clear.text"))
+        clear_btn.setToolTip(tr("toolbar.clear.tooltip"))
+        clear_btn.setStatusTip(tr("toolbar.clear.tip"))
         clear_btn.triggered.connect(self.clear_all)
         
         # 全选按钮
-        select_all_btn = toolbar.addAction(Icons.CHECK_CIRCLE, "全选")
-        select_all_btn.setToolTip("全选内容 (Ctrl+A)")
-        select_all_btn.setStatusTip("选中当前编辑区所有内容")
+        select_all_btn = toolbar.addAction(Icons.CHECK_CIRCLE, tr("toolbar.select_all.text"))
+        select_all_btn.setToolTip(tr("toolbar.select_all.tooltip"))
+        select_all_btn.setStatusTip(tr("toolbar.select_all.tip"))
         select_all_btn.triggered.connect(self.select_all)
         
         # 复制按钮
-        self.copy_btn = toolbar.addAction(Icons.COPY, "复制")
-        self.copy_btn.setToolTip("复制选中内容 (Ctrl+C)")
-        self.copy_btn.setStatusTip("复制选中的文本")
+        self.copy_btn = toolbar.addAction(Icons.COPY, tr("toolbar.copy.text"))
+        self.copy_btn.setToolTip(tr("toolbar.copy.tooltip"))
+        self.copy_btn.setStatusTip(tr("toolbar.copy.tip"))
         self.copy_btn.triggered.connect(self.copy)
         self.copy_btn.setEnabled(False)
         
         # 粘贴按钮
-        self.paste_btn = toolbar.addAction(Icons.PASTE, "粘贴")
-        self.paste_btn.setToolTip("粘贴内容 (Ctrl+V)")
-        self.paste_btn.setStatusTip("在当前光标处粘贴剪贴板内容")
+        self.paste_btn = toolbar.addAction(Icons.PASTE, tr("toolbar.paste.text"))
+        self.paste_btn.setToolTip(tr("toolbar.paste.tooltip"))
+        self.paste_btn.setStatusTip(tr("toolbar.paste.tip"))
         self.paste_btn.triggered.connect(self.paste)
         
         # 全选+复制组合按钮（使用文字代替图标，更清晰）
-        select_copy_btn = toolbar.addAction("全选并复制")
-        select_copy_btn.setToolTip("全选并复制 (Ctrl+Shift+C)")
-        select_copy_btn.setStatusTip("选中所有内容并复制到剪贴板")
-        select_copy_btn.triggered.connect(self.select_all_and_copy)
+        self.select_copy_btn = toolbar.addAction(tr("toolbar.select_copy.text"))
+        self.select_copy_btn.setToolTip(tr("toolbar.select_copy.tooltip"))
+        self.select_copy_btn.setStatusTip(tr("toolbar.select_copy.tip"))
+        self.select_copy_btn.triggered.connect(self.select_all_and_copy)
         
         toolbar.addSeparator()
         
         # 查找按钮
-        find_btn = toolbar.addAction(Icons.SEARCH, "查找")
-        find_btn.setToolTip("查找文本 (Ctrl+F)")
-        find_btn.setStatusTip("在当前文件中查找")
+        find_btn = toolbar.addAction(Icons.SEARCH, tr("toolbar.find.text"))
+        find_btn.setToolTip(tr("toolbar.find.tooltip"))
+        find_btn.setStatusTip(tr("toolbar.find.tip"))
         find_btn.triggered.connect(self.show_find_dialog)
         
         # 替换按钮
-        replace_btn = toolbar.addAction(Icons.EXCHANGE, "替换")
-        replace_btn.setToolTip("查找并替换 (Ctrl+H)")
-        replace_btn.setStatusTip("查找并替换")
+        replace_btn = toolbar.addAction(Icons.EXCHANGE, tr("toolbar.replace.text"))
+        replace_btn.setToolTip(tr("toolbar.replace.tooltip"))
+        replace_btn.setStatusTip(tr("toolbar.replace.tip"))
         replace_btn.triggered.connect(self.show_replace_dialog)
     
     def _create_statusbar(self):
@@ -406,7 +424,25 @@ class MainWindow(QMainWindow):
         self.setStatusBar(self.statusbar)
         
         # 显示就绪状态
-        self.statusbar.showMessage("就绪", 2000)
+        self.statusbar.showMessage(tr("statusbar.ready"), 2000)
+        
+        # ===== 语言切换按钮 (右下角 - 最方便的位置) =====
+        from src.ui.language_selector import LanguageButton
+        self.language_button = LanguageButton(self)
+        self.language_button.setStyleSheet("""
+            QPushButton {
+                border: 1px solid #555;
+                border-radius: 3px;
+                padding: 4px 12px;
+                background-color: transparent;
+                font-size: 11px;
+            }
+            QPushButton:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+                border-color: #777;
+            }
+        """)
+        self.statusbar.addPermanentWidget(self.language_button)
         
         # 添加永久状态信息
         self.statusbar.addPermanentWidget(
@@ -889,37 +925,41 @@ class MainWindow(QMainWindow):
 
     def show_about(self):
         """显示关于对话框"""
+        about_text = (
+            f"<h3>{tr('about.header')}</h3>"
+            f"<p>{tr('about.intro')}</p>"
+            f"<p><b>🎨 {tr('about.latest_features')}</b></p>"
+            "<ul>"
+            f"<li>{tr('about.feature_themes')}</li>"
+            f"<li>{tr('about.feature_zero_config')}</li>"
+            f"<li>{tr('about.feature_scenarios')}</li>"
+            f"<li>{tr('about.feature_realtime')}</li>"
+            "</ul>"
+            f"<p><b>📁 {tr('about.v133_features')}</b></p>"
+            "<ul>"
+            f"<li>{tr('about.feature_folder')}</li>"
+            f"<li>{tr('about.feature_path')}</li>"
+            f"<li>{tr('about.feature_icons')}</li>"
+            "</ul>"
+            f"<p><b>✨ {tr('about.core_features')}</b></p>"
+            "<ul>"
+            f"<li>{tr('about.feature_7themes')}</li>"
+            f"<li>{tr('about.feature_editing')}</li>"
+            f"<li>{tr('about.feature_search')}</li>"
+            f"<li>{tr('about.feature_file_mgmt')}</li>"
+            f"<li>{tr('about.feature_toolbar')}</li>"
+            "</ul>"
+            f"<p><b>🎮 {tr('about.shortcuts_title')}</b></p>"
+            f"<p>{tr('about.shortcuts_line1')}</p>"
+            f"<p>{tr('about.shortcuts_line2')}</p>"
+            f"<p><b>{tr('about.update_date')}</b>{tr('about.date')}</p>"
+            f"<p>{tr('about.copyright')}</p>"
+        )
+        
         QMessageBox.about(
             self,
-            "关于 Chango Editor",
-            "<h3>Chango Editor v1.3.4 🚀</h3>"
-            "<p>一个强大的类似于 Sublime Text 的代码编辑器，基于 Python 和 PyQt6 构建</p>"
-            "<p><b>🎨 v1.3.4 最新功能 - 主题系统扩展：</b></p>"
-            "<ul>"
-            "<li>🌈 5个新主题 - Deep Blue、Light Yellow、Ocean、Forest、Monokai</li>"
-            "<li>📁 零代码配置 - 只需添加JSON文件即可创建新主题</li>"
-            "<li>🎯 场景化配色 - 专业开发、护眼阅读、创意设计等多场景覆盖</li>"
-            "<li>🚀 实时切换 - 菜单即时切换，无需重启</li>"
-            "</ul>"
-            "<p><b>📁 v1.3.3 功能：</b></p>"
-            "<ul>"
-            "<li>📂 打开文件夹功能 - 快捷键Ctrl+Shift+O</li>"
-            "<li>📏 路径区优化 - 完整显示文件路径，可横向滚动</li>"
-            "<li>🎨 图标风格统一 - SVG矢量图标，主题自动适配</li>"
-            "</ul>"
-            "<p><b>✨ 核心特性：</b></p>"
-            "<ul>"
-            "<li>🎨 7个精美主题 - 从经典到护眼，多场景覆盖</li>"
-            "<li>📝 强大编辑功能 - 支持20+语言语法高亮</li>"
-            "<li>🔍 高级搜索替换 - 正则表达式支持</li>"
-            "<li>📁 智能文件管理 - 树形浏览器、拖拽打开、快速导航</li>"
-            "<li>⚡ 图标化工具栏 - 直观图标、完整快捷键支持</li>"
-            "</ul>"
-            "<p><b>🎮 快捷键参考：</b></p>"
-            "<p>Ctrl+N 新建 | Ctrl+O 打开文件 | Ctrl+Shift+O 打开文件夹</p>"
-            "<p>Ctrl+S 保存 | Ctrl+F 查找 | Ctrl+H 替换 | Ctrl+Shift+C 全选并复制</p>"
-            "<p><b>更新时间：</b>2025年10月6日</p>"
-            "<p>© 2025 Chango Team | MIT License</p>"
+            tr("about.title"),
+            about_text
         )
     
     def closeEvent(self, event):
@@ -1126,6 +1166,66 @@ class MainWindow(QMainWindow):
         self.redo_btn.setEnabled(False)
         self.copy_btn.setEnabled(False)
         self.paste_btn.setEnabled(False)
+    
+    # ========== 多语言支持 ==========
+    
+    def _on_language_changed(self, locale: str):
+        """
+        语言切换事件处理
+        
+        Args:
+            locale: 新语言代码，如 "zh_CN", "en_US", "ja_JP"
+        """
+        print(f"🎯 MainWindow: _on_language_changed被调用！locale={locale}")
+        print(f"🎯 MainWindow: 当前语言名称={self.i18n.get_current_locale_name()}")
+        
+        # 刷新UI
+        print(f"🎯 MainWindow: 准备调用refresh_ui()")
+        self.refresh_ui()
+        
+        # 显示提示消息
+        print(f"🎯 MainWindow: 显示状态栏提示")
+        self.statusbar.showMessage(
+            tr("message.language_changed", language=self.i18n.get_current_locale_name()),
+            3000
+        )
+    
+    def refresh_ui(self):
+        """
+        刷新所有UI文本（语言切换后调用）
+        这个方法会重新创建菜单栏和工具栏，确保所有文本使用新语言显示
+        """
+        print(f"🔄 MainWindow: refresh_ui开始执行")
+        
+        # 1. 更新窗口标题
+        print(f"🔄 MainWindow: 更新窗口标题")
+        self.setWindowTitle(tr("app.title"))
+        
+        # 2. 重新创建菜单栏
+        print(f"🔄 MainWindow: 清空并重建菜单栏")
+        self.menuBar().clear()
+        self._create_menus()
+        
+        # 3. 重新创建工具栏
+        print(f"🔄 MainWindow: 清空并重建工具栏")
+        # 移除旧工具栏
+        if hasattr(self, '_toolbar'):
+            self.removeToolBar(self._toolbar)
+        # 重新创建工具栏
+        self._create_toolbar()
+        
+        # 4. 更新状态栏提示
+        if hasattr(self, 'language_button'):
+            # 语言按钮会自动更新，因为它监听了语言切换信号
+            print(f"🔄 MainWindow: 语言按钮存在")
+        else:
+            print(f"⚠️ MainWindow: 语言按钮不存在")
+        
+        # 5. 更新状态栏消息
+        print(f"🔄 MainWindow: 更新状态栏消息")
+        self.statusbar.showMessage(tr("statusbar.ready"), 1000)
+        
+        print(f"✅ MainWindow: UI已刷新为: {self.i18n.get_current_locale_name()}")
 
 
 def main():

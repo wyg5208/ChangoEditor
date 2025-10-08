@@ -3,12 +3,21 @@
 [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://python.org)
 [![PyQt6](https://img.shields.io/badge/PyQt6-6.9+-green.svg)](https://pypi.org/project/PyQt6/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey.svg)](https://github.com/yourusername/chango-editor)
-[![Version](https://img.shields.io/badge/Version-1.3.4-brightgreen.svg)](https://github.com/yourusername/chango-editor/releases)
+[![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey.svg)](https://github.com/wyg5208/changoeditor)
+[![Version](https://img.shields.io/badge/Version-1.4.0-brightgreen.svg)](https://github.com/wyg5208/changoeditor/releases)
+[![Languages](https://img.shields.io/badge/Languages-8-blue.svg)](https://github.com/wyg5208/changoeditor)
 
-一个强大的类似于 Sublime Text 的代码编辑器，基于 Python 和 PyQt6 构建，提供完整的代码编辑体验。
+一个强大的类似于 Sublime Text 的代码编辑器，基于 Python 和 PyQt6 构建，提供完整的代码编辑体验。**现已支持8种语言界面！**
 
-## 🎨 v1.3.4 主题系统扩展 (最新)
+## 🌍 v1.4.0 完整国际化支持 (最新)
+- 🌐 **8种语言界面** - 简体中文、English、日本語、Bahasa Melayu、한국어、Русский、Español、繁體中文
+- 🔄 **实时语言切换** - 无需重启，即时切换所有UI元素
+- 📱 **智能语言检测** - 自动识别系统语言，首次启动即本地化
+- 🎯 **完整翻译覆盖** - 菜单、工具栏、对话框、提示信息全面翻译
+- ⚡ **便捷切换入口** - 状态栏语言按钮 + 菜单栏语言选项，双重访问
+- 🎨 **1160+翻译文本** - 超过145个UI元素 × 8种语言
+
+## 🎨 v1.3.4 主题系统扩展
 - 🌈 **5个新主题** - Deep Blue、Light Yellow、Ocean、Forest、Monokai
 - 📁 **零代码配置** - 只需添加JSON文件即可创建新主题
 - 🎯 **场景化配色** - 专业开发、护眼阅读、创意设计等多场景覆盖
@@ -59,14 +68,23 @@
 - **v1.1.1** 🔧 重要修复（文件树导航、撤销功能）
 - **v1.1.0** 🎉 新功能（树形浏览器、文件拖拽、工具栏增强）
 
-![Chango Editor Screenshot](docs/screenshot.png)
+![Chango Editor Screenshot](https://i-blog.csdnimg.cn/direct/e5c01be55d424cada3f4f93fe7096946.png#pic_centerg)
+
+
 
 ## ✨ 主要功能
 
+### 🌍 **完整国际化支持**
+- 8种语言界面（中/英/日/马来/韩/俄/西/繁体）
+- 实时语言切换，无需重启
+- 自动系统语言检测
+- 1160+翻译文本全覆盖
+
 ### 🎨 **智能主题系统**
-- 深色/明亮主题无缝切换
+- 7个精美主题无缝切换
 - 实时主题应用，无需重启
-- 自定义主题配置
+- 自定义主题配置（JSON格式）
+- 场景化配色方案
 
 ### 📝 **强大的编辑功能**
 - 支持 20+ 种编程语言的语法高亮
@@ -98,7 +116,7 @@
 
 ### 方式1: 下载可执行文件 (推荐)
 
-1. 前往 [Releases](https://github.com/yourusername/chango-editor/releases) 页面
+1. 前往 [Releases](https://github.com/wyg5208/changoeditor/releases) 页面
 2. 下载最新版本的 `ChangoEditor.exe` (36.4 MB)
 3. 双击运行，无需安装任何依赖
 
@@ -106,8 +124,8 @@
 
 1. **克隆仓库**
 ```bash
-git clone https://github.com/yourusername/chango-editor.git
-cd chango-editor
+git clone https://github.com/wyg5208/changoeditor.git
+cd changoeditor
 ```
 
 2. **创建虚拟环境**
@@ -164,8 +182,15 @@ python run.py
 - 完整的HTML格式指南，包含所有功能介绍和操作技巧
 - 在默认浏览器中打开，便于阅读和收藏
 
+### 语言切换 🌍
+- **方式1**: 状态栏右下角 → 点击语言按钮（🌐）→ 选择语言
+- **方式2**: 菜单栏 → **语言** → 选择任意语言
+- 支持8种语言：简体中文、English、日本語、Bahasa Melayu、한국어、Русский、Español、繁體中文
+- 实时切换，所有UI元素即时更新，无需重启
+
 ### 主题切换
 - 菜单栏 → **主题** → 选择 "深色主题" 或 "明亮主题"
+- 支持7个主题：Dark、Light、Deep Blue、Ocean、Forest、Monokai、Light Yellow
 - 支持实时切换，立即生效
 
 ### 工具栏功能
@@ -205,7 +230,9 @@ changoeditor/
 │   └── main.py            # 程序入口
 ├── resources/             # 资源文件
 │   ├── themes/           # 主题配置
-│   └── icons/            # 图标文件
+│   ├── icons/            # 图标文件
+│   └── i18n/             # 国际化
+│       └── locales/      # 语言文件（8种语言）
 ├── test_files/           # 测试文件
 ├── docs/                 # 项目文档
 ├── dist/                 # 打包输出目录
@@ -221,7 +248,8 @@ changoeditor/
 - ✅ **文本编辑**: 语法高亮、撤销重做
 - ✅ **文件管理**: 多标签页、树形文件浏览器
 - ✅ **搜索替换**: 正则表达式、统计功能
-- ✅ **主题系统**: 深色/明亮主题切换
+- ✅ **主题系统**: 7个主题实时切换
+- ✅ **国际化系统**: 8种语言完整支持
 - ✅ **图标化界面**: 现代化工具栏设计
 - ✅ **智能文件操作**: 拖拽、展开/收起、刷新
 - ✅ **用户指南**: 完整的HTML使用手册
@@ -243,8 +271,8 @@ python build_exe.py
 
 如果您遇到任何问题或有功能建议，请：
 
-1. 查看 [已知问题](https://github.com/wyg5208/ChangoEditor/issues)
-2. 提交新的 [Issue](https://github.com/wyg5208/ChangoEditor/issues/new)
+1. 查看 [已知问题](https://github.com/wyg5208/changoeditor/issues)
+2. 提交新的 [Issue](https://github.com/wyg5208/changoeditor/issues/new)
 3. 提供详细的错误信息和重现步骤
 
 ## 🤝 参与贡献
@@ -269,9 +297,9 @@ python build_exe.py
 
 ## 📧 联系方式
 
-- **项目主页**: https://github.com/wyg5208/ChangoEditor
-- **问题反馈**: https://github.com/wyg5208/ChangoEditor/issues
-- **版本发布**: https://github.com/wyg5208/ChangoEditor/releases
+- **项目主页**: https://github.com/wyg5208/changoeditor
+- **问题反馈**: https://github.com/wyg5208/changoeditor/issues
+- **版本发布**: https://github.com/wyg5208/changoeditor/releases
 
 ---
 

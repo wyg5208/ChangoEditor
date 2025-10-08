@@ -1,0 +1,223 @@
+{
+  "meta": {
+    "language": "Español",
+    "code": "es_ES",
+    "version": "1.0.0",
+    "author": "ChangoSoft"
+  },
+  "app": {
+    "title": "Chango Editor",
+    "description": "Editor de código moderno"
+  },
+  "menu": {
+    "file": {
+      "title": "&Archivo",
+      "new": {
+        "text": "&Nuevo",
+        "tip": "Crear nuevo archivo"
+      },
+      "open": {
+        "text": "&Abrir archivo",
+        "tip": "Abrir archivo"
+      },
+      "open_folder": {
+        "text": "Abrir &carpeta",
+        "tip": "Abrir carpeta"
+      },
+      "save": {
+        "text": "&Guardar",
+        "tip": "Guardar archivo actual"
+      },
+      "save_as": {
+        "text": "Guardar &como",
+        "tip": "Guardar como nuevo archivo"
+      },
+      "close_current": {
+        "text": "&Cerrar",
+        "tip": "Cerrar archivo actual"
+      },
+      "close_all": {
+        "text": "Cerrar &todos",
+        "tip": "Cerrar todos los archivos"
+      },
+      "exit": {
+        "text": "&Salir",
+        "tip": "Salir de la aplicación"
+      }
+    },
+    "edit": {
+      "title": "&Editar",
+      "undo": {
+        "text": "&Deshacer",
+        "tip": "Deshacer última acción"
+      },
+      "redo": {
+        "text": "&Rehacer",
+        "tip": "Rehacer última acción"
+      },
+      "cut": {
+        "text": "Cor&tar",
+        "tip": "Cortar texto seleccionado"
+      },
+      "copy": {
+        "text": "&Copiar",
+        "tip": "Copiar texto seleccionado"
+      },
+      "paste": {
+        "text": "&Pegar",
+        "tip": "Pegar contenido del portapapeles"
+      }
+    },
+    "view": {
+      "title": "&Ver",
+      "file_explorer": {
+        "text": "&Explorador de archivos",
+        "tip": "Mostrar/Ocultar explorador de archivos"
+      }
+    },
+    "theme": {
+      "title": "&Tema",
+      "dark": "Tema Oscuro",
+      "light": "Tema Claro",
+      "deep_blue": "Tema Azul Profundo",
+      "ocean": "Tema Océano",
+      "forest": "Tema Bosque",
+      "monokai": "Tema Monokai",
+      "light_yellow": "Tema Amarillo Claro"
+    },
+    "search": {
+      "title": "&Buscar",
+      "find": {
+        "text": "&Buscar",
+        "tip": "Buscar en archivo actual"
+      },
+      "replace": {
+        "text": "&Reemplazar",
+        "tip": "Buscar y reemplazar"
+      }
+    },
+    "language": "Idioma",
+    "help": {
+      "title": "A&yuda",
+      "about": {
+        "text": "&Acerca de",
+        "tip": "Acerca de Chango Editor"
+      },
+      "user_guide": {
+        "text": "&Guía de usuario",
+        "tip": "Ver guía de usuario"
+      }
+    }
+  },
+  "toolbar": {
+    "main": "Barra de herramientas principal",
+    "new": {
+      "text": "Nuevo",
+      "tooltip": "Nuevo archivo (Ctrl+N)",
+      "tip": "Crear nuevo archivo"
+    },
+    "open_file": {
+      "text": "Abrir archivo",
+      "tooltip": "Abrir archivo (Ctrl+O)",
+      "tip": "Abrir archivo"
+    },
+    "open_folder": {
+      "text": "Abrir carpeta",
+      "tooltip": "Abrir carpeta (Ctrl+Shift+O)",
+      "tip": "Abrir carpeta"
+    },
+    "save": {
+      "text": "Guardar",
+      "tooltip": "Guardar archivo (Ctrl+S)",
+      "tip": "Guardar archivo actual"
+    },
+    "close_current": {
+      "text": "Cerrar",
+      "tooltip": "Cerrar archivo actual (Ctrl+W)",
+      "tip": "Cerrar archivo actual"
+    },
+    "close_all": {
+      "text": "Cerrar todos",
+      "tooltip": "Cerrar todos los archivos (Ctrl+Shift+W)",
+      "tip": "Cerrar todos los archivos"
+    },
+    "undo": {
+      "text": "Deshacer",
+      "tooltip": "Deshacer (Ctrl+Z)",
+      "tip": "Deshacer última acción"
+    },
+    "redo": {
+      "text": "Rehacer",
+      "tooltip": "Rehacer (Ctrl+Y)",
+      "tip": "Rehacer última acción"
+    },
+    "clear": {
+      "text": "Limpiar",
+      "tooltip": "Limpiar todo (Ctrl+Delete)",
+      "tip": "Limpiar todo el contenido del editor"
+    },
+    "select_all": {
+      "text": "Seleccionar todo",
+      "tooltip": "Seleccionar todo (Ctrl+A)",
+      "tip": "Seleccionar todo el contenido del editor"
+    },
+    "copy": {
+      "text": "Copiar",
+      "tooltip": "Copiar (Ctrl+C)",
+      "tip": "Copiar texto seleccionado"
+    },
+    "paste": {
+      "text": "Pegar",
+      "tooltip": "Pegar (Ctrl+V)",
+      "tip": "Pegar contenido del portapapeles"
+    },
+    "select_copy": {
+      "text": "Seleccionar todo y copiar",
+      "tooltip": "Seleccionar todo y copiar (Ctrl+Shift+C)",
+      "tip": "Seleccionar todo el contenido y copiar al portapapeles"
+    },
+    "find": {
+      "text": "Buscar",
+      "tooltip": "Buscar (Ctrl+F)",
+      "tip": "Buscar en archivo actual"
+    },
+    "replace": {
+      "text": "Reemplazar",
+      "tooltip": "Reemplazar (Ctrl+H)",
+      "tip": "Buscar y reemplazar"
+    }
+  },
+  "statusbar": {
+    "ready": "Listo"
+  },
+  "message": {
+    "language_changed": "Idioma cambiado a: {language}"
+  },
+  "about": {
+    "title": "Acerca de Chango Editor",
+    "header": "Chango Editor v1.4.0 🚀",
+    "intro": "Un potente editor de código estilo Sublime Text construido con Python y PyQt6",
+    "latest_features": "v1.4.0 Últimas funciones - Internacionalización completa:",
+    "feature_themes": "🌐 8 interfaces de idioma - 简体中文, English, 日本語, Bahasa Melayu, 한국어, Русский, Español, 繁體中文",
+    "feature_zero_config": "🔄 Cambio de idioma en tiempo real - Sin reiniciar, actualización instantánea de UI",
+    "feature_scenarios": "📱 Detección inteligente de idioma - Detecta automáticamente el idioma del sistema, localización instantánea",
+    "feature_realtime": "🎯 Cobertura completa de traducción - Menús, barras de herramientas, diálogos, todos los mensajes traducidos",
+    "v133_features": "v1.3.4 Extensión del sistema de temas:",
+    "feature_folder": "🌈 5 nuevos temas - Deep Blue, Light Yellow, Ocean, Forest, Monokai",
+    "feature_path": "📁 Configuración sin código - Crea nuevos temas agregando archivos JSON",
+    "feature_icons": "🚀 Cambio en tiempo real - Cambio de menú instantáneo, sin necesidad de reiniciar",
+    "core_features": "Características principales:",
+    "feature_7themes": "🌍 8 idiomas - Internacionalización completa con cambio en tiempo real",
+    "feature_editing": "🎨 7 hermosos temas - Desde clásicos hasta amigables para la vista, multiescenario",
+    "feature_search": "📝 Edición potente - Resaltado de sintaxis para más de 20 idiomas",
+    "feature_file_mgmt": "📁 Gestión inteligente de archivos - Navegador de árbol, arrastrar y soltar, navegación rápida",
+    "feature_toolbar": "⚡ Barra de herramientas con iconos - Iconos intuitivos, soporte completo de atajos",
+    "shortcuts_title": "Atajos de teclado:",
+    "shortcuts_line1": "Ctrl+N Nuevo | Ctrl+O Abrir archivo | Ctrl+Shift+O Abrir carpeta",
+    "shortcuts_line2": "Ctrl+S Guardar | Ctrl+F Buscar | Ctrl+H Reemplazar | Ctrl+Shift+C Seleccionar todo y copiar",
+    "update_date": "Última actualización:",
+    "date": "8 de octubre de 2025",
+    "copyright": "© 2025 Chango Team | MIT License"
+  }
+}
+
